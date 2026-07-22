@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nail-Rich Studio Prototype</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -10,304 +11,466 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./styles-inline.css">
 <style>
-  body { margin:0; background:#EFE3DC; }
-  * { box-sizing:border-box; }
-  a { color:#8C2350; }
-  a:hover { color:#6E1B3F; }
-  .nrs-scroll::-webkit-scrollbar { width:6px; }
-  .nrs-scroll::-webkit-scrollbar-thumb { background:#D8C3B8; border-radius:3px; }
-  @keyframes nrs-fade { from { opacity:0; transform:translateY(6px);} to { opacity:1; transform:translateY(0);} }
+  .nrs-banner-dark{background:#241A1D;color:#F3E5E0;padding:26px 18px;text-align:center}
+  .nrs-banner-italic{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;margin-bottom:8px}
+  .nrs-banner-sub{font-size:13px;color:#cbb7ae;max-width:320px;margin:0 auto}
+  .nrs-booking-row{padding:22px 18px 34px;text-align:center;border-top:1px solid #EFE3DC}
+  .nrs-booking-text{font-size:13px;color:#6b5a5e;margin-bottom:8px}
+  .nrs-booking-btn{background:transparent;border:1px solid #241A1D;color:#241A1D;padding:10px 18px;font-size:13px;font-weight:600;border-radius:2px;cursor:pointer}
+  .nrs-shop-wrap{animation:nrs-fade .25s ease;padding:16px 16px 30px}
+  .nrs-shop-backrow{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .nrs-back-arrow{cursor:pointer;font-size:18px}
+  .nrs-shop-title{font-family:'Cormorant Garamond',serif;font-size:24px;margin:0}
+  .nrs-typefilters{display:flex;gap:8px;overflow-x:auto;margin-bottom:14px;padding-bottom:2px}
+  .nrs-filter-pill{flex:0 0 auto;white-space:nowrap;font-size:12px;padding:7px 13px;border-radius:20px;cursor:pointer;font-weight:600;background:#F3E5E0;color:#241A1D;border:1px solid #E7D4CC}
+  .nrs-filter-pill--active{background:#8C2350;color:#fff;border-color:#8C2350}
+  .nrs-result-count{font-size:12px;color:#8a7a7e;margin-bottom:10px}
+  .nrs-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .nrs-product-card{cursor:pointer}
+  .nrs-product-image-wrap{position:relative;border-radius:4px;overflow:hidden;background:#F3E5E0}
+  .nrs-product-image{width:100%;height:170px;object-fit:cover;display:block}
+  .nrs-badge{position:absolute;top:8px;left:8px;background:#241A1D;color:#fff;font-size:10px;padding:3px 7px;border-radius:2px}
+  .nrs-soldout{position:absolute;inset:0;background:rgba(251,246,241,.72);display:flex;align-items:center;justify-content:center}
+  .nrs-soldout-text{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#241A1D}
+  .nrs-product-title{font-size:13px;font-weight:600;margin-top:8px;color:#241A1D;line-height:1.3}
+  .nrs-product-meta{font-size:11px;color:#8a7a7e;margin-top:1px}
+  .nrs-product-price{font-size:12px;color:#241A1D;margin-top:2px}
+  .nrs-product-view{animation:nrs-fade .25s ease;padding-bottom:100px}
+  .nrs-product-header{position:relative}
+  .nrs-product-header-img{width:100%;height:340px;object-fit:cover;display:block}
+  .nrs-product-back-btn{position:absolute;top:14px;left:14px;background:rgba(251,246,241,.9);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px}
+  .nrs-product-badge{position:absolute;bottom:14px;left:14px;background:#241A1D;color:#fff;font-size:11px;padding:4px 9px;border-radius:2px}
+  .nrs-product-content{padding:18px 18px 0}
+  .nrs-product-type{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#A9895C;font-weight:700}
+  .nrs-product-title-main{font-family:'Cormorant Garamond',serif;font-size:24px;margin:6px 0 4px;line-height:1.15}
+  .nrs-product-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+  .nrs-product-price-main{font-size:19px;font-weight:700;color:#241A1D}
+  .nrs-product-price-note{font-size:11px;color:#8a7a7e}
+  .nrs-product-desc{font-size:13.5px;color:#4a3d40;line-height:1.6;margin:0 0 16px}
+  .nrs-product-option{margin-bottom:16px}
+  .nrs-product-option-label{font-size:12px;font-weight:700;margin-bottom:8px;display:flex;justify-content:space-between}
+  .nrs-product-option-label-value{font-weight:400;color:#8a7a7e}
+  .nrs-product-option-buttons{display:flex;gap:8px}
+  .nrs-product-shape-btn{width:44px;height:44px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px}
+  .nrs-product-length-btn{flex:1;text-align:center;padding:8px 0;border-radius:2px;border:1px solid;font-size:11px;font-weight:600;cursor:pointer}
+  .nrs-product-size-box{background:#F3E5E0;border-radius:6px;padding:14px;margin-bottom:16px}
+  .nrs-product-size-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .nrs-product-size-label{font-size:12px;font-weight:700}
+  .nrs-product-size-link{font-size:12px;color:#8C2350;font-weight:700;cursor:pointer}
+  .nrs-product-size-profile{font-size:13px;color:#241A1D}
+  .nrs-product-size-warning{font-size:12.5px;color:#7A4B2A}
+  .nrs-product-accordion{border-top:1px solid #EFE3DC;padding:14px 0}
+  .nrs-product-accordion-header{display:flex;justify-content:space-between;cursor:pointer;font-size:13px;font-weight:700}
+  .nrs-product-accordion-content{font-size:12.5px;color:#4a3d40;margin-top:8px;line-height:1.6}
+  .nrs-product-footer{position:sticky;bottom:0;left:0;right:0;background:#FBF6F1;border-top:1px solid #EFE3DC;padding:12px 18px;display:flex;align-items:center;gap:12px;margin-top:6px}
+  .nrs-product-footer-price{flex:1}
+  .nrs-product-footer-price-main{font-size:15px;font-weight:700}
+  .nrs-product-footer-price-note{font-size:11px;color:#8a7a7e}
+  .nrs-product-footer-btn{background:#8C2350;color:#fff;border:none;padding:13px 22px;border-radius:2px;font-weight:700;font-size:13px;cursor:pointer}
+  .nrs-product-view{animation:nrs-fade .25s ease;padding-bottom:100px}
+  .nrs-product-header{position:relative}
+  .nrs-product-header-img{width:100%;height:340px;object-fit:cover;display:block}
+  .nrs-product-back-btn{position:absolute;top:14px;left:14px;background:rgba(251,246,241,.9);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px}
+  .nrs-product-badge{position:absolute;bottom:14px;left:14px;background:#241A1D;color:#fff;font-size:11px;padding:4px 9px;border-radius:2px}
+  .nrs-product-content{padding:18px 18px 0}
+  .nrs-product-type{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#A9895C;font-weight:700}
+  .nrs-product-title-main{font-family:'Cormorant Garamond',serif;font-size:24px;margin:6px 0 4px;line-height:1.15}
+  .nrs-product-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+  .nrs-product-price-main{font-size:19px;font-weight:700;color:#241A1D}
+  .nrs-product-price-note{font-size:11px;color:#8a7a7e}
+  .nrs-product-desc{font-size:13.5px;color:#4a3d40;line-height:1.6;margin:0 0 16px}
+  .nrs-product-option{margin-bottom:16px}
+  .nrs-product-option-label{font-size:12px;font-weight:700;margin-bottom:8px;display:flex;justify-content:space-between}
+  .nrs-product-option-label-value{font-weight:400;color:#8a7a7e}
+  .nrs-product-option-buttons{display:flex;gap:8px}
+  .nrs-product-shape-btn{width:44px;height:44px;border-radius:50%;border:2px solid #E7D4CC;background:#F3E5E0;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px}
+  .nrs-product-shape-btn--active{background:#8C2350;border-color:#8C2350;color:#fff}
+  .nrs-product-length-btn{flex:1;text-align:center;padding:8px 0;border-radius:2px;border:1px solid #E7D4CC;background:#FBF6F1;color:#241A1D;font-size:11px;font-weight:600;cursor:pointer}
+  .nrs-product-length-btn--active{background:#8C2350;border-color:#8C2350;color:#fff}
+  .nrs-product-size-box{background:#F3E5E0;border-radius:6px;padding:14px;margin-bottom:16px}
+  .nrs-product-size-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .nrs-product-size-label{font-size:12px;font-weight:700}
+  .nrs-product-size-link{font-size:12px;color:#8C2350;font-weight:700;cursor:pointer}
+  .nrs-product-size-profile{font-size:13px;color:#241A1D}
+  .nrs-product-size-warning{font-size:12.5px;color:#7A4B2A}
+  .nrs-product-accordion{border-top:1px solid #EFE3DC;padding:14px 0}
+  .nrs-product-accordion-header{display:flex;justify-content:space-between;cursor:pointer;font-size:13px;font-weight:700}
+  .nrs-product-accordion-content{font-size:12.5px;color:#4a3d40;margin-top:8px;line-height:1.6}
+  .nrs-sizing-wrap{animation:nrs-fade .25s ease;padding:18px}
+  .nrs-sizing-header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+  .nrs-sizing-back{cursor:pointer;font-size:18px}
+  .nrs-sizing-title{font-family:'Cormorant Garamond',serif;font-size:22px;margin:0}
+  .nrs-sizing-copy{font-size:13px;color:#4a3d40;margin:0 0 18px}
+  .nrs-sizing-option{border-radius:6px;padding:16px;margin-bottom:12px;cursor:pointer}
+  .nrs-sizing-option--featured{border:2px solid #8C2350;background:#FBF6F1}
+  .nrs-sizing-option--plain,.nrs-sizing-option--profile{border:1px solid #E7D4CC;background:#fff}
+  .nrs-sizing-option-top{display:flex;justify-content:space-between;align-items:flex-start}
+  .nrs-sizing-option-title{font-size:15px;font-weight:700}
+  .nrs-sizing-option-price{font-size:13px;font-weight:700}
+  .nrs-sizing-option-copy{font-size:12.5px;color:#4a3d40;margin-top:8px;line-height:1.55}
+  .nrs-sizing-option-caption{font-size:11px;color:#8a7a7e;margin-top:6px}
+  .nrs-sizing-option-kicker{font-size:11px;font-weight:700;color:#8C2350;text-transform:uppercase;letter-spacing:.03em}
+  .nrs-sizing-cta{margin-top:22px;padding-top:18px;border-top:1px solid #EFE3DC}
+  .nrs-sizing-cta-title{font-size:13px;font-weight:700;margin-bottom:10px}
+  .nrs-sizing-cta-copy{font-size:12.5px;color:#4a3d40;line-height:1.6;margin-bottom:14px}
+  .nrs-sizing-cta-btn{width:100%;background:#8C2350;color:#fff;border:none;padding:13px;border-radius:2px;font-weight:700;font-size:13px;cursor:pointer}
+  .nrs-sizing-cta-btn--disabled{background:#D8C3B8;cursor:not-allowed}
+  .nrs-sizing-measure-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+  .nrs-sizing-measure-item{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;padding:8px 10px;background:#F3E5E0;border-radius:4px}
+  .nrs-sizing-measure-value{color:#8a7a7e}
+  .nrs-sizing-confirm{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#4a3d40;margin-bottom:14px}
+  .nrs-sizing-confirm input{margin-top:2px}
+  .nrs-sizing-profile-card{border:1px solid #E7D4CC;border-radius:6px;padding:12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+  .nrs-sizing-profile-name{font-size:13px;font-weight:700}
+  .nrs-sizing-profile-date{font-size:11.5px;color:#8a7a7e}
+  .nrs-sizing-profile-action{font-size:12px;color:#8C2350;font-weight:700}
+  .nrs-custom-wrap{animation:nrs-fade .25s ease;padding:18px}
+  .nrs-custom-header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+  .nrs-custom-back{cursor:pointer;font-size:18px}
+  .nrs-custom-title{font-family:'Cormorant Garamond',serif;font-size:22px;margin:0}
+  .nrs-custom-copy{font-size:13px;color:#4a3d40;line-height:1.6;margin:0 0 16px}
+  .nrs-custom-info{background:#F3E5E0;border-radius:6px;padding:14px;font-size:12.5px;color:#4a3d40;margin-bottom:18px;line-height:1.6}
+  .nrs-custom-info-muted{color:#8a7a7e}
+  .nrs-custom-upload{border:1px dashed #C9A895;border-radius:6px;padding:26px;text-align:center;color:#8a7a7e;font-size:12.5px;margin-bottom:16px}
+  .nrs-custom-submit{width:100%;background:#8C2350;color:#fff;border:none;padding:13px;border-radius:2px;font-weight:700;font-size:13px;cursor:pointer}
+  .nrs-confirmation-wrap{animation:nrs-fade .25s ease;padding:40px 24px;text-align:center}
+  .nrs-confirmation-check{width:56px;height:56px;border-radius:50%;background:#E4EEE8;color:#2F6B55;font-size:28px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .nrs-confirmation-title{font-family:'Cormorant Garamond',serif;font-size:24px;margin:0 0 8px}
+  .nrs-confirmation-order{font-size:13px;color:#4a3d40;margin-bottom:20px}
+  .nrs-confirmation-box{background:#F3E5E0;border-radius:6px;padding:16px;text-align:left;font-size:12.5px;color:#4a3d40;line-height:1.7;margin-bottom:20px}
+  .nrs-confirmation-btn{background:#241A1D;color:#fff;border:none;padding:12px 20px;border-radius:2px;font-weight:700;font-size:13px;cursor:pointer}
+  .nrs-cart-overlay{position:absolute;inset:0;background:rgba(36,26,29,.45);z-index:20}
+  .nrs-cart-drawer{position:absolute;top:0;right:0;bottom:0;width:82%;max-width:340px;background:#FBF6F1;z-index:21;display:flex;flex-direction:column;box-shadow:-8px 0 24px rgba(0,0,0,.15)}
+  .nrs-cart-header{padding:16px;border-bottom:1px solid #EFE3DC;display:flex;justify-content:space-between;align-items:center}
+  .nrs-cart-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600}
+  .nrs-cart-close{cursor:pointer;font-size:18px}
+  .nrs-cart-body{flex:1;overflow-y:auto;padding:14px}
+  .nrs-cart-item{display:flex;gap:10px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #EFE3DC}
+  .nrs-cart-item-image{width:60px;height:74px;object-fit:cover;border-radius:3px}
+  .nrs-cart-item-content{flex:1}
+  .nrs-cart-item-title{font-size:13px;font-weight:700}
+  .nrs-cart-item-meta{font-size:11.5px;color:#8a7a7e;margin-top:2px}
+  .nrs-cart-item-warning{font-size:11px;color:#A43838;margin-top:3px}
+  .nrs-cart-item-price{font-size:12.5px;font-weight:700;margin-top:4px}
+  .nrs-cart-empty{text-align:center;padding:40px 10px;color:#8a7a7e;font-size:13px}
+  .nrs-cart-footer{padding:16px;border-top:1px solid #EFE3DC}
+  .nrs-cart-summary{display:flex;justify-content:space-between;font-size:13px;margin-bottom:12px}
+  .nrs-cart-checkout-btn{width:100%;background:#8C2350;color:#fff;border:none;padding:13px;border-radius:2px;font-weight:700;font-size:13px;cursor:pointer}
+  .nrs-cart-checkout-btn:disabled{background:#D8C3B8;cursor:not-allowed}
+  .nrs-checkout-drawer{position:absolute;inset:0;background:#FBF6F1;z-index:22;display:flex;flex-direction:column}
+  .nrs-checkout-header{padding:14px 16px;border-bottom:1px solid #EFE3DC;display:flex;align-items:center;gap:8px}
+  .nrs-checkout-back{cursor:pointer;font-size:18px}
+  .nrs-checkout-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600}
+  .nrs-checkout-body{flex:1;overflow-y:auto;padding:18px}
+  .nrs-checkout-step-title{font-size:12px;font-weight:700;color:#8C2350;margin-bottom:8px}
+  .nrs-checkout-stack{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+  .nrs-checkout-field{padding:11px;border:1px solid #E7D4CC;border-radius:3px;font-size:13px}
+  .nrs-checkout-field--half{flex:1}
+  .nrs-checkout-field--wide{flex:2}
+  .nrs-checkout-option{padding:12px;border:1px solid #E7D4CC;border-radius:3px;font-size:13px;display:flex;justify-content:space-between}
+  .nrs-checkout-option-caption{color:#8a7a7e;font-size:11px}
+  .nrs-checkout-summary{background:#F3E5E0;border-radius:6px;padding:14px;font-size:13px;margin-bottom:6px}
+  .nrs-checkout-summary-row{display:flex;justify-content:space-between;margin-bottom:6px}
+  .nrs-checkout-summary-row--muted{color:#8a7a7e;font-size:11.5px}
+  .nrs-checkout-summary-total{display:flex;justify-content:space-between;font-weight:700;border-top:1px solid #E7D4CC;padding-top:8px}
+  .nrs-checkout-submit{width:100%;background:#8C2350;color:#fff;border:none;padding:14px;border-radius:2px;font-weight:700;font-size:14px;cursor:pointer}
+  .nrs-checkout-address-row{display:flex;gap:8px}
+  .nrs-checkout-footer{padding:14px 18px;border-top:1px solid #EFE3DC}
 </style>
 </helmet>
-<div style="width:430px; height:900px; margin:24px auto; background:#FBF6F1; border-radius:28px; overflow:hidden; box-shadow:0 30px 60px rgba(36,26,29,.25); position:relative; font-family:'Manrope',sans-serif; display:flex; flex-direction:column;">
+<div class="nrs-shell">
 
-  <div style="background:#241A1D; color:#F3E5E0; font-size:12px; text-align:center; padding:6px 0; letter-spacing:.03em;">Fri frakt inom Sverige över 799 kr · Handgjort i Stockholm</div>
+  <div class="nrs-topbar">Fri frakt inom Sverige över 799 kr · Handgjort i Stockholm</div>
 
-  <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid #EFE3DC; background:#FBF6F1; position:relative; z-index:5;">
-    <div onClick="{{ goHome }}" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-      <img src="assets/logo.png" alt="Nail-Rich Studio" style="width:34px; height:34px; border-radius:50%; object-fit:cover;" />
-      <span style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:18px; color:#241A1D; letter-spacing:.02em;">Nail‑Rich Studio</span>
+  <div class="nrs-topbar-row">
+    <div onClick="{{ goHome }}" class="nrs-logo">
+      <img src="assets/logo.png" alt="Nail-Rich Studio" class="nrs-logo__img" />
+      <span class="nrs-logo__title">Nail-Rich Studio</span>
     </div>
-    <div style="display:flex; align-items:center; gap:14px;">
-      <span onClick="{{ goToScreen }}" data-screen="shop" style="cursor:pointer; font-size:18px;">⌕</span>
-      <span style="cursor:pointer; font-size:18px;">♡</span>
-      <span onClick="{{ openCart }}" style="cursor:pointer; font-size:14px; position:relative; padding:4px;">
+    <div class="nrs-topbar-icons">
+      <span onClick="{{ goToScreen }}" data-screen="shop" class="nrs-topbar-icon">⌕</span>
+      <span class="nrs-topbar-icon">♡</span>
+      <span onClick="{{ openCart }}" class="nrs-topbar-icon nrs-cart-icon">
         🛍
         <sc-if value="{{ cartCount }}" hint-placeholder-val="{{ false }}">
-          <span style="position:absolute; top:-2px; right:-4px; background:#8C2350; color:#fff; font-size:10px; font-weight:700; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center;">{{ cartCount }}</span>
+          <span class="nrs-cart-badge">{{ cartCount }}</span>
         </sc-if>
       </span>
     </div>
   </div>
 
-  <div class="nrs-scroll" style="flex:1; overflow-y:auto; overflow-x:hidden; position:relative; background:#FBF6F1;">
+  <div class="nrs-scroll nrs-scroll--fill nrs-scroll--bg">
+
+
 
     <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-      <div style="animation:nrs-fade .3s ease;">
-        <div style="position:relative; height:420px; overflow:hidden;">
-          <img src="assets/sample6.jpg" style="width:100%; height:100%; object-fit:cover; object-position:60% 30%;" alt="Handmålade press-on-naglar med rosa linjekonst"/>
-          <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(36,26,29,0) 40%, rgba(36,26,29,.65) 100%);"></div>
-          <div style="position:absolute; bottom:20px; left:20px; right:20px; color:#fff;">
-            <div style="font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#EFC9BE; margin-bottom:6px;">Handgjort i Stockholm sedan 2012</div>
-            <h1 style="font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:600; margin:0 0 14px; line-height:1.1;">Press-on som sitter som gjutna – för att de nästan är det.</h1>
-            <div style="display:flex; gap:10px;">
-              <button onClick="{{ goToScreen }}" data-screen="shop" style="background:#8C2350; color:#fff; border:none; padding:12px 18px; border-radius:2px; font-weight:700; font-size:14px; letter-spacing:.01em; cursor:pointer;">Shoppa press-on</button>
-              <button onClick="{{ goToScreen }}" data-screen="custom" style="background:transparent; color:#fff; border:1px solid rgba(255,255,255,.6); padding:12px 16px; border-radius:2px; font-weight:600; font-size:14px; cursor:pointer;">Skapa ditt set</button>
+      <div class="nrs-hero nrs-anim-fade">
+        <div class="nrs-hero__wrap">
+          <img src="assets/sample6.jpg" class="nrs-hero__img" alt="Handmålade press-on-naglar med rosa linjekonst"/>
+          <div class="nrs-hero__overlay"></div>
+          <div class="nrs-hero__content">
+            <div class="nrs-hero__kicker">Handgjort i Stockholm sedan 2012</div>
+            <h1 class="nrs-hero__title">Press-on som sitter som gjutna – för att de nästan är det.</h1>
+            <div class="nrs-hero__actions">
+              <button onClick="{{ goToScreen }}" data-screen="shop" class="nrs-btn nrs-btn--primary">Shoppa press-on</button>
+              <button onClick="{{ goToScreen }}" data-screen="custom" class="nrs-btn nrs-btn--ghost">Skapa ditt set</button>
             </div>
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#EFE3DC; margin:0 0 4px;">
-          <div onClick="{{ goToShopFiltered }}" data-type="ready" style="background:#FBF6F1; padding:16px 10px; text-align:center; cursor:pointer;">
-            <div style="font-size:22px;">✓</div>
-            <div style="font-size:12px; font-weight:700; margin-top:4px;">Ready to ship</div>
-            <div style="font-size:11px; color:#8a7a7e;">Skickas inom 1–2 dagar</div>
+        <div class="nrs-cats">
+          <div onClick="{{ goToShopFiltered }}" data-type="ready" class="nrs-cat">
+            <div class="nrs-cat__icon">✓</div>
+            <div class="nrs-cat__title">Ready to ship</div>
+            <div class="nrs-cat__meta">Skickas inom 1–2 dagar</div>
           </div>
-          <div onClick="{{ goToShopFiltered }}" data-type="made" style="background:#FBF6F1; padding:16px 10px; text-align:center; cursor:pointer;">
-            <div style="font-size:22px;">✂</div>
-            <div style="font-size:12px; font-weight:700; margin-top:4px;">Made to order</div>
-            <div style="font-size:11px; color:#8a7a7e;">Görs på din storlek</div>
+          <div onClick="{{ goToShopFiltered }}" data-type="made" class="nrs-cat">
+            <div class="nrs-cat__icon">✂</div>
+            <div class="nrs-cat__title">Made to order</div>
+            <div class="nrs-cat__meta">Görs på din storlek</div>
           </div>
-          <div onClick="{{ goToScreen }}" data-screen="custom" style="background:#FBF6F1; padding:16px 10px; text-align:center; cursor:pointer;">
-            <div style="font-size:22px;">✦</div>
-            <div style="font-size:12px; font-weight:700; margin-top:4px;">Custom design</div>
-            <div style="font-size:11px; color:#8a7a7e;">Din idé, vårt hantverk</div>
+          <div onClick="{{ goToScreen }}" data-screen="custom" class="nrs-cat nrs-cat--custom">
+            <div class="nrs-cat__icon">✦</div>
+            <div class="nrs-cat__title">Custom design</div>
+            <div class="nrs-cat__meta">Din idé, vårt hantverk</div>
           </div>
         </div>
 
-        <div style="padding:22px 18px 6px;">
-          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px;">
-            <h2 style="font-family:'Cormorant Garamond',serif; font-size:22px; margin:0;">Nya set</h2>
-            <span onClick="{{ goToScreen }}" data-screen="shop" style="font-size:13px; cursor:pointer; color:#8C2350; font-weight:600;">Se alla →</span>
+        <div class="nrs-featured-section">
+          <div class="nrs-featured-header">
+            <h2 class="nrs-featured-title">Nya set</h2>
+            <span onClick="{{ goToScreen }}" data-screen="shop" class="nrs-featured-link">Se alla →</span>
           </div>
-          <div style="display:flex; gap:12px; overflow-x:auto; padding-bottom:6px;">
+          <div class="nrs-featured-grid">
             <sc-for list="{{ featuredProducts }}" as="p" hint-placeholder-count="3">
-              <div onClick="{{ openProduct }}" data-id="{{ p.id }}" style="flex:0 0 150px; cursor:pointer;">
-                <div style="position:relative; border-radius:4px; overflow:hidden;">
-                  <img src="{{ p.image }}" style="width:150px; height:190px; object-fit:cover; display:block;" alt="{{ p.alt }}"/>
+              <div onClick="{{ openProduct }}" data-id="{{ p.id }}" class="nrs-featured-item">
+                <div class="nrs-featured-image-wrap">
+                  <img src="{{ p.image }}" class="nrs-featured-image" alt="{{ p.alt }}"/>
                   <sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
-                    <span style="position:absolute; top:8px; left:8px; background:#241A1D; color:#fff; font-size:10px; padding:3px 7px; border-radius:2px; letter-spacing:.03em;">{{ p.badge }}</span>
+                    <span class="nrs-featured-badge">{{ p.badge }}</span>
                   </sc-if>
                 </div>
-                <div style="font-size:13px; font-weight:600; margin-top:8px; color:#241A1D;">{{ p.title }}</div>
-                <div style="font-size:12px; color:#8a7a7e;">{{ p.priceLabel }}</div>
+                <div class="nrs-featured-title">{{ p.title }}</div>
+                <div class="nrs-featured-price">{{ p.priceLabel }}</div>
               </div>
             </sc-for>
           </div>
         </div>
 
-        <div style="padding:26px 18px;">
-          <h2 style="font-family:'Cormorant Garamond',serif; font-size:22px; margin:0 0 16px;">Så fungerar det</h2>
-          <div style="display:flex; flex-direction:column; gap:14px;">
-            <div style="display:flex; gap:12px; align-items:flex-start;">
-              <div style="width:28px; height:28px; border-radius:50%; background:#F3E5E0; color:#8C2350; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</div>
-              <div><div style="font-weight:700; font-size:14px;">Välj design</div><div style="font-size:13px; color:#6b5a5e;">Bläddra bland ready-to-ship, made-to-order eller skapa eget.</div></div>
+        <div class="nrs-how-section">
+          <h2 class="nrs-how-title">Så fungerar det</h2>
+          <div class="nrs-how-grid">
+            <div class="nrs-how-item">
+              <div class="nrs-how-number">1</div>
+              <div><div class="nrs-how-item-title">Välj design</div><div class="nrs-how-item-desc">Bläddra bland ready-to-ship, made-to-order eller skapa eget.</div></div>
             </div>
-            <div style="display:flex; gap:12px; align-items:flex-start;">
-              <div style="width:28px; height:28px; border-radius:50%; background:#F3E5E0; color:#8C2350; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</div>
-              <div><div style="font-weight:700; font-size:14px;">Hitta din passform</div><div style="font-size:13px; color:#6b5a5e;">Sizing-kit, sparad profil eller mät hemma – du väljer.</div></div>
+            <div class="nrs-how-item">
+              <div class="nrs-how-number">2</div>
+              <div><div class="nrs-how-item-title">Hitta din passform</div><div class="nrs-how-item-desc">Sizing-kit, sparad profil eller mät hemma – du väljer.</div></div>
             </div>
-            <div style="display:flex; gap:12px; align-items:flex-start;">
-              <div style="width:28px; height:28px; border-radius:50%; background:#F3E5E0; color:#8C2350; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</div>
-              <div><div style="font-weight:700; font-size:14px;">Applicera &amp; njut</div><div style="font-size:13px; color:#6b5a5e;">Lim eller tabs, enkel borttagning, spara till nästa gång.</div></div>
+            <div class="nrs-how-item">
+              <div class="nrs-how-number">3</div>
+              <div><div class="nrs-how-item-title">Applicera &amp; njut</div><div class="nrs-how-item-desc">Lim eller tabs, enkel borttagning, spara till nästa gång.</div></div>
             </div>
           </div>
         </div>
 
-        <div style="background:#241A1D; color:#F3E5E0; padding:26px 18px; text-align:center;">
-          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; margin-bottom:8px;">15+ års erfarenhet, i varje set</div>
-          <div style="font-size:13px; color:#cbb7ae; max-width:320px; margin:0 auto;">Vi är samma händer bakom stolen i studion i Handen som bakom varje handgjort set du beställer online.</div>
+        <div class="nrs-banner-dark">
+          <div class="nrs-banner-italic">15+ års erfarenhet, i varje set</div>
+          <div class="nrs-banner-sub">Vi är samma händer bakom stolen i studion i Handen som bakom varje handgjort set du beställer online.</div>
         </div>
 
-        <div style="padding:22px 18px 34px; text-align:center; border-top:1px solid #EFE3DC;">
-          <div style="font-size:13px; color:#6b5a5e; margin-bottom:8px;">Vill du hellre boka en tid i studion?</div>
-          <button style="background:transparent; border:1px solid #241A1D; color:#241A1D; padding:10px 18px; font-size:13px; font-weight:600; border-radius:2px; cursor:pointer;">Boka tid →</button>
+        <div class="nrs-booking-row">
+          <div class="nrs-booking-text">Vill du hellre boka en tid i studion?</div>
+          <button class="nrs-booking-btn">Boka tid →</button>
         </div>
       </div>
     </sc-if>
 
     <sc-if value="{{ isShop }}" hint-placeholder-val="{{ false }}">
-      <div style="animation:nrs-fade .25s ease; padding:16px 16px 30px;">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-          <span onClick="{{ goHome }}" style="cursor:pointer; font-size:18px;">←</span>
-          <h1 style="font-family:'Cormorant Garamond',serif; font-size:24px; margin:0;">Shop</h1>
+      <div class="nrs-shop-wrap">
+        <div class="nrs-shop-backrow">
+          <span onClick="{{ goHome }}" class="nrs-back-arrow">←</span>
+          <h1 class="nrs-shop-title">Shop</h1>
         </div>
-        <div style="display:flex; gap:8px; overflow-x:auto; margin-bottom:14px; padding-bottom:2px;">
+        <div class="nrs-typefilters">
           <sc-for list="{{ typeFilters }}" as="f" hint-placeholder-count="4">
-            <span onClick="{{ setTypeFilter }}" data-type="{{ f.value }}" style="flex:0 0 auto; white-space:nowrap; font-size:12px; padding:7px 13px; border-radius:20px; cursor:pointer; font-weight:600; background:{{ f.bg }}; color:{{ f.color }}; border:1px solid {{ f.border }};">{{ f.label }}</span>
+            <span onClick="{{ setTypeFilter }}" data-type="{{ f.value }}" class="{{ f.className }}">{{ f.label }}</span>
           </sc-for>
         </div>
-        <div style="font-size:12px; color:#8a7a7e; margin-bottom:10px;">{{ resultCount }} set</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div class="nrs-result-count">{{ resultCount }} set</div>
+        <div class="nrs-grid-2">
           <sc-for list="{{ shopProducts }}" as="p" hint-placeholder-count="6">
-            <div onClick="{{ openProduct }}" data-id="{{ p.id }}" style="cursor:pointer;">
-              <div style="position:relative; border-radius:4px; overflow:hidden; background:#F3E5E0;">
-                <img src="{{ p.image }}" style="width:100%; height:170px; object-fit:cover; display:block;" alt="{{ p.alt }}"/>
+            <div onClick="{{ openProduct }}" data-id="{{ p.id }}" class="nrs-product-card">
+              <div class="nrs-product-image-wrap">
+                <img src="{{ p.image }}" class="nrs-product-image" alt="{{ p.alt }}"/>
                 <sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
-                  <span style="position:absolute; top:8px; left:8px; background:#241A1D; color:#fff; font-size:10px; padding:3px 7px; border-radius:2px;">{{ p.badge }}</span>
+                  <span class="nrs-badge">{{ p.badge }}</span>
                 </sc-if>
                 <sc-if value="{{ p.soldOut }}" hint-placeholder-val="{{ false }}">
-                  <div style="position:absolute; inset:0; background:rgba(251,246,241,.72); display:flex; align-items:center; justify-content:center;"><span style="font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:#241A1D;">Slutsåld</span></div>
+                  <div class="nrs-soldout"><span class="nrs-soldout-text">Slutsåld</span></div>
                 </sc-if>
               </div>
-              <div style="font-size:13px; font-weight:600; margin-top:8px; color:#241A1D; line-height:1.3;">{{ p.title }}</div>
-              <div style="font-size:11px; color:#8a7a7e; margin-top:1px;">{{ p.shapeLength }}</div>
-              <div style="font-size:12px; color:#241A1D; margin-top:2px;">{{ p.priceLabel }}</div>
+              <div class="nrs-product-title">{{ p.title }}</div>
+              <div class="nrs-product-meta">{{ p.shapeLength }}</div>
+              <div class="nrs-product-price">{{ p.priceLabel }}</div>
             </div>
           </sc-for>
         </div>
         <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
-          <div style="text-align:center; padding:40px 20px; color:#6b5a5e; font-size:13px;">
+          <div class="nrs-no-results">
             Inga set matchar just nu.<br/>
-            <span onClick="{{ clearFilters }}" style="color:#8C2350; font-weight:600; cursor:pointer;">Rensa filter</span>
+            <span onClick="{{ clearFilters }}" class="nrs-no-results-link">Rensa filter</span>
           </div>
         </sc-if>
       </div>
     </sc-if>
 
     <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
-      <div style="animation:nrs-fade .25s ease; padding-bottom:100px;">
-        <div style="position:relative;">
-          <img src="{{ currentProduct.image }}" style="width:100%; height:340px; object-fit:cover; display:block;" alt="{{ currentProduct.alt }}"/>
-          <span onClick="{{ backFromProduct }}" style="position:absolute; top:14px; left:14px; background:rgba(251,246,241,.9); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px;">←</span>
+      <div class="nrs-product-view">
+        <div class="nrs-product-header">
+          <img src="{{ currentProduct.image }}" class="nrs-product-header-img" alt="{{ currentProduct.alt }}"/>
+          <span onClick="{{ backFromProduct }}" class="nrs-product-back-btn">←</span>
           <sc-if value="{{ currentProduct.badge }}" hint-placeholder-val="{{ false }}">
-            <span style="position:absolute; bottom:14px; left:14px; background:#241A1D; color:#fff; font-size:11px; padding:4px 9px; border-radius:2px;">{{ currentProduct.badge }}</span>
+            <span class="nrs-product-badge">{{ currentProduct.badge }}</span>
           </sc-if>
         </div>
-        <div style="padding:18px 18px 0;">
-          <div style="font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:#A9895C; font-weight:700;">{{ currentProduct.typeLabel }}</div>
-          <h1 style="font-family:'Cormorant Garamond',serif; font-size:24px; margin:6px 0 4px; line-height:1.15;">{{ currentProduct.title }}</h1>
-          <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:10px;">
-            <span style="font-size:19px; font-weight:700; color:#241A1D;">{{ livePrice }}</span>
-            <span style="font-size:11px; color:#8a7a7e;">inkl. moms · pris exempel</span>
+        <div class="nrs-product-content">
+          <div class="nrs-product-type">{{ currentProduct.typeLabel }}</div>
+          <h1 class="nrs-product-title-main">{{ currentProduct.title }}</h1>
+          <div class="nrs-product-price-row">
+            <span class="nrs-product-price-main">{{ livePrice }}</span>
+            <span class="nrs-product-price-note">inkl. moms · pris exempel</span>
           </div>
-          <p style="font-size:13.5px; color:#4a3d40; line-height:1.6; margin:0 0 16px;">{{ currentProduct.description }}</p>
+          <p class="nrs-product-desc">{{ currentProduct.description }}</p>
 
-          <div style="margin-bottom:16px;">
-            <div style="font-size:12px; font-weight:700; margin-bottom:8px; display:flex; justify-content:space-between;"><span>Form</span><span style="font-weight:400; color:#8a7a7e;">{{ selectedShape.label }}</span></div>
-            <div style="display:flex; gap:8px;">
+          <div class="nrs-product-option">
+            <div class="nrs-product-option-label"><span>Form</span><span class="nrs-product-option-label-value">{{ selectedShape.label }}</span></div>
+            <div class="nrs-product-option-buttons">
               <sc-for list="{{ shapeOptions }}" as="s" hint-placeholder-count="5">
-                <div onClick="{{ selectShape }}" data-shape="{{ s.value }}" style="width:44px; height:44px; border-radius:50%; border:2px solid {{ s.border }}; background:{{ s.bg }}; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px;">{{ s.glyph }}</div>
+                <div onClick="{{ selectShape }}" data-shape="{{ s.value }}" class="{{ s.className }}">{{ s.glyph }}</div>
               </sc-for>
             </div>
           </div>
 
-          <div style="margin-bottom:18px;">
-            <div style="font-size:12px; font-weight:700; margin-bottom:8px; display:flex; justify-content:space-between;"><span>Längd</span><span style="font-weight:400; color:#8a7a7e;">{{ selectedLength.label }}</span></div>
-            <div style="display:flex; gap:8px;">
+          <div class="nrs-product-option">
+            <div class="nrs-product-option-label"><span>Längd</span><span class="nrs-product-option-label-value">{{ selectedLength.label }}</span></div>
+            <div class="nrs-product-option-buttons">
               <sc-for list="{{ lengthOptions }}" as="l" hint-placeholder-count="5">
-                <div onClick="{{ selectLength }}" data-length="{{ l.value }}" style="flex:1; text-align:center; padding:8px 0; border-radius:2px; border:1px solid {{ l.border }}; background:{{ l.bg }}; color:{{ l.color }}; font-size:11px; font-weight:600; cursor:pointer;">{{ l.label }}</div>
+                <div onClick="{{ selectLength }}" data-length="{{ l.value }}" class="{{ l.className }}">{{ l.label }}</div>
               </sc-for>
             </div>
           </div>
 
-          <div style="background:#F3E5E0; border-radius:6px; padding:14px; margin-bottom:16px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-              <span style="font-size:12px; font-weight:700;">Storlek</span>
-              <span onClick="{{ goToScreen }}" data-screen="sizing" style="font-size:12px; color:#8C2350; font-weight:700; cursor:pointer;">Jag vet inte min storlek →</span>
+          <div class="nrs-product-size-box">
+            <div class="nrs-product-size-header">
+              <span class="nrs-product-size-label">Storlek</span>
+              <span onClick="{{ goToScreen }}" data-screen="sizing" class="nrs-product-size-link">Jag vet inte min storlek →</span>
             </div>
             <sc-if value="{{ hasSizeProfile }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:13px; color:#241A1D;">✓ Använder profil "{{ savedProfileName }}"</div>
+              <div class="nrs-product-size-profile">✓ Använder profil "{{ savedProfileName }}"</div>
             </sc-if>
             <sc-if value="{{ !hasSizeProfile }}" hint-placeholder-val="{{ true }}">
-              <div style="font-size:12.5px; color:#7A4B2A;">Ingen storlek vald ännu — vi rekommenderar en sizing-kit innan ditt första köp.</div>
+              <div class="nrs-product-size-warning">Ingen storlek vald ännu — vi rekommenderar en sizing-kit innan ditt första köp.</div>
             </sc-if>
           </div>
 
-          <div style="border-top:1px solid #EFE3DC; padding:14px 0;">
-            <div onClick="{{ toggleAccordion }}" data-key="included" style="display:flex; justify-content:space-between; cursor:pointer; font-size:13px; font-weight:700;"><span>Det här ingår</span><span>{{ accordionIcon.included }}</span></div>
+          <div class="nrs-product-accordion">
+            <div onClick="{{ toggleAccordion }}" data-key="included" class="nrs-product-accordion-header"><span>Det här ingår</span><span>{{ accordionIcon.included }}</span></div>
             <sc-if value="{{ openAccordion.included }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:12.5px; color:#4a3d40; margin-top:8px; line-height:1.6;">10 handmålade nagelspetsar, nagellim + adhesive tabs, mini-fil, träpinne för applicering, förvaringsask.</div>
+              <div class="nrs-product-accordion-content">10 handmålade nagelspetsar, nagellim + adhesive tabs, mini-fil, träpinne för applicering, förvaringsask.</div>
             </sc-if>
           </div>
-          <div style="border-top:1px solid #EFE3DC; padding:14px 0;">
-            <div onClick="{{ toggleAccordion }}" data-key="production" style="display:flex; justify-content:space-between; cursor:pointer; font-size:13px; font-weight:700;"><span>Produktion &amp; leverans</span><span>{{ accordionIcon.production }}</span></div>
+          <div class="nrs-product-accordion">
+            <div onClick="{{ toggleAccordion }}" data-key="production" class="nrs-product-accordion-header"><span>Produktion &amp; leverans</span><span>{{ accordionIcon.production }}</span></div>
             <sc-if value="{{ openAccordion.production }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:12.5px; color:#4a3d40; margin-top:8px; line-height:1.6;">{{ currentProduct.productionNote }}</div>
+              <div class="nrs-product-accordion-content">{{ currentProduct.productionNote }}</div>
             </sc-if>
           </div>
-          <div style="border-top:1px solid #EFE3DC; padding:14px 0;">
-            <div onClick="{{ toggleAccordion }}" data-key="care" style="display:flex; justify-content:space-between; cursor:pointer; font-size:13px; font-weight:700;"><span>Applicering, borttagning &amp; skötsel</span><span>{{ accordionIcon.care }}</span></div>
+          <div class="nrs-product-accordion">
+            <div onClick="{{ toggleAccordion }}" data-key="care" class="nrs-product-accordion-header"><span>Applicering, borttagning &amp; skötsel</span><span>{{ accordionIcon.care }}</span></div>
             <sc-if value="{{ openAccordion.care }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:12.5px; color:#4a3d40; margin-top:8px; line-height:1.6;">Applicera med lim för längre hållbarhet eller adhesive tabs för skonsam, återanvändningsbar fästning. Ta bort varsamt med värme och olja – undvik att dra loss. Förvara torrt i asken mellan användningar.</div>
+              <div class="nrs-product-accordion-content">Applicera med lim för längre hållbarhet eller adhesive tabs för skonsam, återanvändningsbar fästning. Ta bort varsamt med värme och olja – undvik att dra loss. Förvara torrt i asken mellan användningar.</div>
             </sc-if>
           </div>
         </div>
 
-        <div style="position:sticky; bottom:0; left:0; right:0; background:#FBF6F1; border-top:1px solid #EFE3DC; padding:12px 18px; display:flex; align-items:center; gap:12px; margin-top:6px;">
-          <div style="flex:1;">
-            <div style="font-size:15px; font-weight:700;">{{ livePrice }}</div>
-            <div style="font-size:11px; color:#8a7a7e;">{{ currentProduct.productionShort }}</div>
+        <div class="nrs-product-footer">
+          <div class="nrs-product-footer-price">
+            <div class="nrs-product-footer-price-main">{{ livePrice }}</div>
+            <div class="nrs-product-footer-price-note">{{ currentProduct.productionShort }}</div>
           </div>
-          <button onClick="{{ addToCart }}" style="background:#8C2350; color:#fff; border:none; padding:13px 22px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Lägg i kundvagn</button>
+          <button onClick="{{ addToCart }}" class="nrs-product-footer-btn">Lägg i kundvagn</button>
         </div>
       </div>
     </sc-if>
 
     <sc-if value="{{ isSizing }}" hint-placeholder-val="{{ false }}">
-      <div style="animation:nrs-fade .25s ease; padding:18px;">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
-          <span onClick="{{ backFromSizing }}" style="cursor:pointer; font-size:18px;">←</span>
-          <h1 style="font-family:'Cormorant Garamond',serif; font-size:22px; margin:0;">Hitta din storlek</h1>
+      <div class="nrs-sizing-wrap">
+        <div class="nrs-sizing-header">
+          <span onClick="{{ backFromSizing }}" class="nrs-sizing-back">←</span>
+          <h1 class="nrs-sizing-title">Hitta din storlek</h1>
         </div>
-        <p style="font-size:13px; color:#4a3d40; margin:0 0 18px;">Rätt storlek är det viktigaste för att ditt set ska kännas och sitta perfekt. Välj det sätt som passar dig.</p>
+        <p class="nrs-sizing-copy">Rätt storlek är det viktigaste för att ditt set ska kännas och sitta perfekt. Välj det sätt som passar dig.</p>
 
-        <div onClick="{{ selectSizingMethod }}" data-method="kit" style="border:2px solid #8C2350; border-radius:6px; padding:16px; margin-bottom:12px; cursor:pointer; background:#FBF6F1;">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div onClick="{{ selectSizingMethod }}" data-method="kit" class="nrs-sizing-option nrs-sizing-option--featured">
+          <div class="nrs-sizing-option-top">
             <div>
-              <div style="font-size:11px; font-weight:700; color:#8C2350; text-transform:uppercase; letter-spacing:.03em;">Rekommenderas</div>
-              <div style="font-size:15px; font-weight:700; margin-top:2px;">Beställ en sizing-kit</div>
+              <div class="nrs-sizing-option-kicker">Rekommenderas</div>
+              <div class="nrs-sizing-option-title">Beställ en sizing-kit</div>
             </div>
-            <div style="font-size:13px; font-weight:700;">149 kr*</div>
+            <div class="nrs-sizing-option-price">149 kr*</div>
           </div>
-          <div style="font-size:12.5px; color:#4a3d40; margin-top:8px; line-height:1.55;">Provtips i alla storlekar hemskickade. Mest träffsäkra sättet, särskilt vid din första beställning.</div>
-          <div style="font-size:11px; color:#8a7a7e; margin-top:6px;">*Pris exempel, väntar bekräftelse</div>
+          <div class="nrs-sizing-option-copy">Provtips i alla storlekar hemskickade. Mest träffsäkra sättet, särskilt vid din första beställning.</div>
+          <div class="nrs-sizing-option-caption">*Pris exempel, väntar bekräftelse</div>
         </div>
 
-        <div onClick="{{ selectSizingMethod }}" data-method="measure" style="border:1px solid #E7D4CC; border-radius:6px; padding:16px; margin-bottom:12px; cursor:pointer;">
-          <div style="font-size:15px; font-weight:700;">Mät hemma</div>
-          <div style="font-size:12.5px; color:#4a3d40; margin-top:6px; line-height:1.55;">Mät bredaste punkten på alla tio naglar med en tumstocksremsa. Något mindre exakt än en sizing-kit, men fungerar bra med noggrann mätning.</div>
+        <div onClick="{{ selectSizingMethod }}" data-method="measure" class="nrs-sizing-option nrs-sizing-option--plain">
+          <div class="nrs-sizing-option-title">Mät hemma</div>
+          <div class="nrs-sizing-option-copy">Mät bredaste punkten på alla tio naglar med en tumstocksremsa. Något mindre exakt än en sizing-kit, men fungerar bra med noggrann mätning.</div>
         </div>
 
-        <div onClick="{{ selectSizingMethod }}" data-method="profile" style="border:1px solid #E7D4CC; border-radius:6px; padding:16px; cursor:pointer;">
-          <div style="font-size:15px; font-weight:700;">Använd sparad profil</div>
-          <div style="font-size:12.5px; color:#4a3d40; margin-top:6px; line-height:1.55;">Har du handlat hos oss förut? Välj en tidigare sparad nagelprofil.</div>
+        <div onClick="{{ selectSizingMethod }}" data-method="profile" class="nrs-sizing-option nrs-sizing-option--profile">
+          <div class="nrs-sizing-option-title">Använd sparad profil</div>
+          <div class="nrs-sizing-option-copy">Har du handlat hos oss förut? Välj en tidigare sparad nagelprofil.</div>
         </div>
 
         <sc-if value="{{ sizingMethodSelected == 'kit' }}" hint-placeholder-val="{{ false }}">
-          <div style="margin-top:22px; padding-top:18px; border-top:1px solid #EFE3DC;">
-            <div style="font-size:13px; font-weight:700; margin-bottom:10px;">Sizing-kit tillagd</div>
-            <div style="font-size:12.5px; color:#4a3d40; line-height:1.6; margin-bottom:14px;">Vi skickar kitet separat. När du mätt klart sparar du din nagelprofil och kan slutföra det här setet direkt utan att börja om.</div>
-            <button onClick="{{ confirmSizingAndReturn }}" style="width:100%; background:#8C2350; color:#fff; border:none; padding:13px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Fortsätt till kundvagn</button>
+          <div class="nrs-sizing-cta">
+            <div class="nrs-sizing-cta-title">Sizing-kit tillagd</div>
+            <div class="nrs-sizing-cta-copy">Vi skickar kitet separat. När du mätt klart sparar du din nagelprofil och kan slutföra det här setet direkt utan att börja om.</div>
+            <button onClick="{{ confirmSizingAndReturn }}" class="nrs-sizing-cta-btn">Fortsätt till kundvagn</button>
           </div>
         </sc-if>
         <sc-if value="{{ sizingMethodSelected == 'measure' }}" hint-placeholder-val="{{ false }}">
-          <div style="margin-top:22px; padding-top:18px; border-top:1px solid #EFE3DC;">
-            <div style="font-size:13px; font-weight:700; margin-bottom:10px;">Mät dina tio naglar</div>
-            <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:14px;">
+          <div class="nrs-sizing-cta">
+            <div class="nrs-sizing-cta-title">Mät dina tio naglar</div>
+            <div class="nrs-sizing-measure-list">
               <sc-for list="{{ fingerNames }}" as="f" hint-placeholder-count="5">
-                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12.5px; padding:8px 10px; background:#F3E5E0; border-radius:4px;">
+                <div class="nrs-sizing-measure-item">
                   <span>{{ f }} (V / H)</span>
-                  <span style="color:#8a7a7e;">mm / mm</span>
+                  <span class="nrs-sizing-measure-value">mm / mm</span>
                 </div>
               </sc-for>
             </div>
-            <label style="display:flex; gap:8px; align-items:flex-start; font-size:12px; color:#4a3d40; margin-bottom:14px;">
-              <input type="checkbox" onChange="{{ toggleMeasureConfirm }}" style="margin-top:2px;"/>
+            <label class="nrs-sizing-confirm">
+              <input type="checkbox" onChange="{{ toggleMeasureConfirm }}"/>
               Jag bekräftar att jag mätt alla tio naglar noggrant enligt guiden.
             </label>
-            <button onClick="{{ confirmSizingAndReturn }}" disabled="{{ !measureConfirmed }}" style="width:100%; background:{{ measureConfirmed ? '#8C2350' : '#D8C3B8' }}; color:#fff; border:none; padding:13px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Spara &amp; fortsätt till kundvagn</button>
+            <button onClick="{{ confirmSizingAndReturn }}" disabled="{{ !measureConfirmed }}" class="{{ measureConfirmed ? 'nrs-sizing-cta-btn' : 'nrs-sizing-cta-btn nrs-sizing-cta-btn--disabled' }}">Spara &amp; fortsätt till kundvagn</button>
           </div>
         </sc-if>
         <sc-if value="{{ sizingMethodSelected == 'profile' }}" hint-placeholder-val="{{ false }}">
-          <div style="margin-top:22px; padding-top:18px; border-top:1px solid #EFE3DC;">
-            <div onClick="{{ pickSavedProfile }}" style="border:1px solid #E7D4CC; border-radius:6px; padding:12px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+          <div class="nrs-sizing-cta">
+            <div onClick="{{ pickSavedProfile }}" class="nrs-sizing-profile-card">
               <div>
-                <div style="font-size:13px; font-weight:700;">Pat – kort mandel</div>
-                <div style="font-size:11.5px; color:#8a7a7e;">Sparad 14 mars 2026</div>
+                <div class="nrs-sizing-profile-name">Pat – kort mandel</div>
+                <div class="nrs-sizing-profile-date">Sparad 14 mars 2026</div>
               </div>
-              <span style="font-size:12px; color:#8C2350; font-weight:700;">Välj</span>
+              <span class="nrs-sizing-profile-action">Välj</span>
             </div>
           </div>
         </sc-if>
@@ -315,99 +478,99 @@
     </sc-if>
 
     <sc-if value="{{ isCustom }}" hint-placeholder-val="{{ false }}">
-      <div style="animation:nrs-fade .25s ease; padding:18px;">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
-          <span onClick="{{ goHome }}" style="cursor:pointer; font-size:18px;">←</span>
-          <h1 style="font-family:'Cormorant Garamond',serif; font-size:22px; margin:0;">Skapa ditt set</h1>
+      <div class="nrs-custom-wrap">
+        <div class="nrs-custom-header">
+          <span onClick="{{ goHome }}" class="nrs-custom-back">←</span>
+          <h1 class="nrs-custom-title">Skapa ditt set</h1>
         </div>
-        <p style="font-size:13px; color:#4a3d40; line-height:1.6; margin:0 0 16px;">Har du en idé, en bild eller ett tillfälle i åtanke? Berätta för oss så designar vi ett unikt Nail‑Rich Studio-set utifrån din inspiration – aldrig en direkt kopia av någon annans konstverk.</p>
-        <div style="background:#F3E5E0; border-radius:6px; padding:14px; font-size:12.5px; color:#4a3d40; margin-bottom:18px; line-height:1.6;">Riktpris: 450–1200 kr beroende på komplexitet*. Produktionstid: 2–4 veckor*.<br/><span style="color:#8a7a7e;">*Exempel, väntar bekräftelse från studion.</span></div>
-        <div style="border:1px dashed #C9A895; border-radius:6px; padding:26px; text-align:center; color:#8a7a7e; font-size:12.5px; margin-bottom:16px;">📎 Ladda upp inspirationsbilder (dra hit eller välj fil)</div>
-        <button style="width:100%; background:#8C2350; color:#fff; border:none; padding:13px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Starta din förfrågan</button>
+        <p class="nrs-custom-copy">Har du en idé, en bild eller ett tillfälle i åtanke? Berätta för oss så designar vi ett unikt Nail‑Rich Studio-set utifrån din inspiration – aldrig en direkt kopia av någon annans konstverk.</p>
+        <div class="nrs-custom-info">Riktpris: 450–1200 kr beroende på komplexitet*. Produktionstid: 2–4 veckor*.<br/><span class="nrs-custom-info-muted">*Exempel, väntar bekräftelse från studion.</span></div>
+        <div class="nrs-custom-upload">📎 Ladda upp inspirationsbilder (dra hit eller välj fil)</div>
+        <button class="nrs-custom-submit">Starta din förfrågan</button>
       </div>
     </sc-if>
 
     <sc-if value="{{ isConfirmation }}" hint-placeholder-val="{{ false }}">
-      <div style="animation:nrs-fade .25s ease; padding:40px 24px; text-align:center;">
-        <div style="width:56px; height:56px; border-radius:50%; background:#E4EEE8; color:#2F6B55; font-size:28px; display:flex; align-items:center; justify-content:center; margin:0 auto 18px;">✓</div>
-        <h1 style="font-family:'Cormorant Garamond',serif; font-size:24px; margin:0 0 8px;">Tack för din beställning!</h1>
-        <div style="font-size:13px; color:#4a3d40; margin-bottom:20px;">Ordernummer <strong>#NRS-10482</strong></div>
-        <div style="background:#F3E5E0; border-radius:6px; padding:16px; text-align:left; font-size:12.5px; color:#4a3d40; line-height:1.7; margin-bottom:20px;">
+      <div class="nrs-confirmation-wrap">
+        <div class="nrs-confirmation-check">✓</div>
+        <h1 class="nrs-confirmation-title">Tack för din beställning!</h1>
+        <div class="nrs-confirmation-order">Ordernummer <strong>#NRS-10482</strong></div>
+        <div class="nrs-confirmation-box">
           Din sizing-kit skickas inom 1–2 dagar. När du mätt klart loggar du in och sparar din nagelprofil – då slutför vi din beställning direkt utan att du behöver välja om.
         </div>
-        <button onClick="{{ goHome }}" style="background:#241A1D; color:#fff; border:none; padding:12px 20px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Till startsidan</button>
+        <button onClick="{{ goHome }}" class="nrs-confirmation-btn">Till startsidan</button>
       </div>
     </sc-if>
 
   </div>
 
   <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeCart }}" style="position:absolute; inset:0; background:rgba(36,26,29,.45); z-index:20;"></div>
-    <div style="position:absolute; top:0; right:0; bottom:0; width:82%; max-width:340px; background:#FBF6F1; z-index:21; display:flex; flex-direction:column; box-shadow:-8px 0 24px rgba(0,0,0,.15);">
-      <div style="padding:16px; border-bottom:1px solid #EFE3DC; display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600;">Kundvagn</span>
-        <span onClick="{{ closeCart }}" style="cursor:pointer; font-size:18px;">✕</span>
+    <div onClick="{{ closeCart }}" class="nrs-cart-overlay"></div>
+    <div class="nrs-cart-drawer">
+      <div class="nrs-cart-header">
+        <span class="nrs-cart-title">Kundvagn</span>
+        <span onClick="{{ closeCart }}" class="nrs-cart-close">✕</span>
       </div>
-      <div style="flex:1; overflow-y:auto; padding:14px;">
+      <div class="nrs-cart-body">
         <sc-if value="{{ cartCount }}" hint-placeholder-val="{{ false }}">
           <sc-for list="{{ cartItems }}" as="c" hint-placeholder-count="1">
-            <div style="display:flex; gap:10px; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid #EFE3DC;">
-              <img src="{{ c.image }}" style="width:60px; height:74px; object-fit:cover; border-radius:3px;" alt="{{ c.title }}"/>
-              <div style="flex:1;">
-                <div style="font-size:13px; font-weight:700;">{{ c.title }}</div>
-                <div style="font-size:11.5px; color:#8a7a7e; margin-top:2px;">{{ c.shapeLength }}</div>
+            <div class="nrs-cart-item">
+              <img src="{{ c.image }}" class="nrs-cart-item-image" alt="{{ c.title }}"/>
+              <div class="nrs-cart-item-content">
+                <div class="nrs-cart-item-title">{{ c.title }}</div>
+                <div class="nrs-cart-item-meta">{{ c.shapeLength }}</div>
                 <sc-if value="{{ c.sizingWarning }}" hint-placeholder-val="{{ false }}">
-                  <div style="font-size:11px; color:#A43838; margin-top:3px;">⚠ Storlek ej vald</div>
+                  <div class="nrs-cart-item-warning">⚠ Storlek ej vald</div>
                 </sc-if>
-                <div style="font-size:12.5px; font-weight:700; margin-top:4px;">{{ c.priceLabel }}</div>
+                <div class="nrs-cart-item-price">{{ c.priceLabel }}</div>
               </div>
             </div>
           </sc-for>
         </sc-if>
         <sc-if value="{{ !cartCount }}" hint-placeholder-val="{{ true }}">
-          <div style="text-align:center; padding:40px 10px; color:#8a7a7e; font-size:13px;">Din kundvagn är tom.</div>
+          <div class="nrs-cart-empty">Din kundvagn är tom.</div>
         </sc-if>
       </div>
-      <div style="padding:16px; border-top:1px solid #EFE3DC;">
-        <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:12px;"><span>Delsumma</span><strong>{{ cartSubtotal }}</strong></div>
-        <button onClick="{{ goToCheckout }}" disabled="{{ !cartCount }}" style="width:100%; background:{{ cartCount ? '#8C2350' : '#D8C3B8' }}; color:#fff; border:none; padding:13px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Till kassan</button>
+      <div class="nrs-cart-footer">
+        <div class="nrs-cart-summary"><span>Delsumma</span><strong>{{ cartSubtotal }}</strong></div>
+        <button onClick="{{ goToCheckout }}" disabled="{{ !cartCount }}" class="nrs-cart-checkout-btn">Till kassan</button>
       </div>
     </div>
   </sc-if>
 
   <sc-if value="{{ isCheckout }}" hint-placeholder-val="{{ false }}">
-    <div style="position:absolute; inset:0; background:#FBF6F1; z-index:22; display:flex; flex-direction:column;">
-      <div style="padding:14px 16px; border-bottom:1px solid #EFE3DC; display:flex; align-items:center; gap:8px;">
-        <span onClick="{{ closeCheckout }}" style="cursor:pointer; font-size:18px;">←</span>
-        <span style="font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600;">Kassa</span>
+    <div class="nrs-checkout-drawer">
+      <div class="nrs-checkout-header">
+        <span onClick="{{ closeCheckout }}" class="nrs-checkout-back">←</span>
+        <span class="nrs-checkout-title">Kassa</span>
       </div>
-      <div class="nrs-scroll" style="flex:1; overflow-y:auto; padding:18px;">
-        <div style="font-size:12px; font-weight:700; color:#8C2350; margin-bottom:8px;">1. Leveransadress</div>
-        <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:20px;">
-          <input placeholder="Namn" style="padding:11px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px;"/>
-          <input placeholder="E-post" style="padding:11px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px;"/>
-          <input placeholder="Adress" style="padding:11px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px;"/>
-          <div style="display:flex; gap:8px;">
-            <input placeholder="Postnr" style="flex:1; padding:11px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px;"/>
-            <input placeholder="Ort" style="flex:2; padding:11px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px;"/>
+      <div class="nrs-scroll nrs-checkout-body">
+        <div class="nrs-checkout-step-title">1. Leveransadress</div>
+        <div class="nrs-checkout-stack">
+          <input placeholder="Namn" class="nrs-checkout-field"/>
+          <input placeholder="E-post" class="nrs-checkout-field"/>
+          <input placeholder="Adress" class="nrs-checkout-field"/>
+          <div class="nrs-checkout-address-row">
+            <input placeholder="Postnr" class="nrs-checkout-field nrs-checkout-field--half"/>
+            <input placeholder="Ort" class="nrs-checkout-field nrs-checkout-field--wide"/>
           </div>
         </div>
-        <div style="font-size:12px; font-weight:700; color:#8C2350; margin-bottom:8px;">2. Betalning</div>
-        <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:20px;">
-          <div style="padding:12px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px; display:flex; justify-content:space-between;"><span>Swish</span><span style="color:#8a7a7e; font-size:11px;">platshållare</span></div>
-          <div style="padding:12px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px; display:flex; justify-content:space-between;"><span>Kort</span><span style="color:#8a7a7e; font-size:11px;">platshållare</span></div>
-          <div style="padding:12px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px; display:flex; justify-content:space-between;"><span>Klarna</span><span style="color:#8a7a7e; font-size:11px;">platshållare</span></div>
+        <div class="nrs-checkout-step-title">2. Betalning</div>
+        <div class="nrs-checkout-stack">
+          <div class="nrs-checkout-option"><span>Swish</span><span class="nrs-checkout-option-caption">platshållare</span></div>
+          <div class="nrs-checkout-option"><span>Kort</span><span class="nrs-checkout-option-caption">platshållare</span></div>
+          <div class="nrs-checkout-option"><span>Klarna</span><span class="nrs-checkout-option-caption">platshållare</span></div>
         </div>
-        <div style="font-size:12px; font-weight:700; color:#8C2350; margin-bottom:8px;">3. Sammanfattning</div>
-        <div style="background:#F3E5E0; border-radius:6px; padding:14px; font-size:13px; margin-bottom:6px;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>Delsumma</span><span>{{ cartSubtotal }}</span></div>
-          <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>Frakt</span><span>49 kr</span></div>
-          <div style="display:flex; justify-content:space-between; margin-bottom:6px; color:#8a7a7e; font-size:11.5px;"><span>varav moms (25%)</span><span>{{ vatAmount }}</span></div>
-          <div style="display:flex; justify-content:space-between; font-weight:700; border-top:1px solid #E7D4CC; padding-top:8px;"><span>Totalt</span><span>{{ cartTotal }}</span></div>
+        <div class="nrs-checkout-step-title">3. Sammanfattning</div>
+        <div class="nrs-checkout-summary">
+          <div class="nrs-checkout-summary-row"><span>Delsumma</span><span>{{ cartSubtotal }}</span></div>
+          <div class="nrs-checkout-summary-row"><span>Frakt</span><span>49 kr</span></div>
+          <div class="nrs-checkout-summary-row nrs-checkout-summary-row--muted"><span>varav moms (25%)</span><span>{{ vatAmount }}</span></div>
+          <div class="nrs-checkout-summary-total"><span>Totalt</span><span>{{ cartTotal }}</span></div>
         </div>
       </div>
-      <div style="padding:14px 18px; border-top:1px solid #EFE3DC;">
-        <button onClick="{{ placeOrder }}" style="width:100%; background:#8C2350; color:#fff; border:none; padding:14px; border-radius:2px; font-weight:700; font-size:14px; cursor:pointer;">Slutför köp — {{ cartTotal }}</button>
+      <div class="nrs-checkout-footer">
+        <button onClick="{{ placeOrder }}" class="nrs-checkout-submit">Slutför köp — {{ cartTotal }}</button>
       </div>
     </div>
   </sc-if>
@@ -533,9 +696,9 @@ class Component extends DCLogic {
       goHome: this.goHome, goToScreen: this.goToScreen, goToShopFiltered: this.goToShopFiltered,
       featuredProducts: PRODUCTS.slice(0, 4),
       typeFilters: [
-        { value:'all', label:'Alla', bg: s.typeFilter==='all'?'#8C2350':'#F3E5E0', color: s.typeFilter==='all'?'#fff':'#241A1D', border: s.typeFilter==='all'?'#8C2350':'#E7D4CC' },
-        { value:'ready', label:'Ready to ship', bg: s.typeFilter==='ready'?'#8C2350':'#F3E5E0', color: s.typeFilter==='ready'?'#fff':'#241A1D', border: s.typeFilter==='ready'?'#8C2350':'#E7D4CC' },
-        { value:'made', label:'Made to order', bg: s.typeFilter==='made'?'#8C2350':'#F3E5E0', color: s.typeFilter==='made'?'#fff':'#241A1D', border: s.typeFilter==='made'?'#8C2350':'#E7D4CC' }
+        { value:'all', label:'Alla', className: 'nrs-filter-pill' + (s.typeFilter==='all' ? ' nrs-filter-pill--active' : '') },
+        { value:'ready', label:'Ready to ship', className: 'nrs-filter-pill' + (s.typeFilter==='ready' ? ' nrs-filter-pill--active' : '') },
+        { value:'made', label:'Made to order', className: 'nrs-filter-pill' + (s.typeFilter==='made' ? ' nrs-filter-pill--active' : '') }
       ],
       setTypeFilter: this.setTypeFilter, clearFilters: this.clearFilters,
       resultCount: shopProducts.length,
@@ -544,8 +707,8 @@ class Component extends DCLogic {
       currentProduct,
       selectedShape: SHAPES.find(x => x.value === s.shape),
       selectedLength: LENGTHS.find(x => x.value === s.length),
-      shapeOptions: SHAPES.map(x => ({ ...x, bg: s.shape===x.value?'#8C2350':'#F3E5E0', border: s.shape===x.value?'#8C2350':'#E7D4CC' })).map(x=>({...x, glyph:x.glyph})),
-      lengthOptions: LENGTHS.map(x => ({ ...x, bg: s.length===x.value?'#8C2350':'#FBF6F1', color: s.length===x.value?'#fff':'#241A1D', border: s.length===x.value?'#8C2350':'#E7D4CC' })),
+      shapeOptions: SHAPES.map(x => ({ ...x, className: 'nrs-product-shape-btn' + (s.shape===x.value ? ' nrs-product-shape-btn--active' : '') })).map(x=>({...x, glyph:x.glyph})),
+      lengthOptions: LENGTHS.map(x => ({ ...x, className: 'nrs-product-length-btn' + (s.length===x.value ? ' nrs-product-length-btn--active' : '') })),
       selectShape: this.selectShape, selectLength: this.selectLength,
       livePrice: currentProduct.priceLabel,
       hasSizeProfile: s.hasSizeProfile, savedProfileName: s.savedProfileName,
