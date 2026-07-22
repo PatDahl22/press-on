@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nail-Rich Studio - Strategi & Research</title>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -12,6 +13,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   body { margin: 0; }
+  doc-page.brand-nrs { --brand: #8C2350; }
+  .docpage-tagline { font-family: 'Manrope', sans-serif; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #A9895C; margin-bottom: 4px; }
+  .docpage-title { font-size: 38px; margin: 0 0 4px; }
+  .docpage-intro { font-size: 15px; color: #6b5a5e; margin-top: 0; }
   doc-page h1, doc-page h2, doc-page h3 { font-family: 'Cormorant Garamond', serif; color: #241A1D; font-weight: 600; }
   doc-page p, doc-page li, doc-page td, doc-page th { font-family: 'Manrope', sans-serif; color: #3A2E31; line-height: 1.55; }
   doc-page table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; }
@@ -23,14 +28,20 @@
   doc-page .needs { background:#FBEAE4; color:#A43838; }
   doc-page hr { border:none; border-top:1px solid #E7D4CC; margin:28px 0; }
   doc-page .swatch { display:inline-block; width:16px; height:16px; border-radius:3px; vertical-align:-3px; margin-right:6px; border:1px solid rgba(0,0,0,.08); }
+  doc-page .swatch--ink { background:#241A1D; }
+  doc-page .swatch--ivory { background:#FBF6F1; }
+  doc-page .swatch--shell { background:#F3E5E0; }
+  doc-page .swatch--cerise { background:#8C2350; }
+  doc-page .swatch--gold { background:#A9895C; }
+  doc-page .swatch--success { background:#2F6B55; }
 </style>
 <script src="./doc-page.js"></script>
 </helmet>
-<doc-page style="--brand:#8C2350;">
+<doc-page class="brand-nrs">
 
-<div style="font-family:'Manrope',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:#A9895C; margin-bottom:4px;">Nail-Rich Studio · Fas 1–3</div>
-<h1 style="font-size:38px; margin:0 0 4px;">Strategi, research &amp; designbeslut</h1>
-<p style="font-size:15px; color:#6b5a5e; margin-top:0;">Underlag för e-handel med press-on-naglar. Allt märkt <span class="tag assumption">Antagande</span> gäller tills Pat bekräftar. <span class="tag needs">Kräver bekräftelse</span> = juridiskt/affärsmässigt beslut som inte får gissas.</p>
+<div class="docpage-tagline">Nail-Rich Studio · Fas 1-3</div>
+<h1 class="docpage-title">Strategi, research &amp; designbeslut</h1>
+<p class="docpage-intro">Underlag för e-handel med press-on-naglar. Allt märkt <span class="tag assumption">Antagande</span> gäller tills Pat bekräftar. <span class="tag needs">Kräver bekräftelse</span> = juridiskt/affärsmässigt beslut som inte får gissas.</p>
 
 <hr>
 <h2>1. Frågor &amp; antagande-register</h2>
@@ -39,7 +50,7 @@
 <tr><th>Område</th><th>Antagande</th><th>Status</th></tr>
 <tr><td>Valuta &amp; skatt</td><td>SEK, pris visas inkl. svensk moms</td><td><span class="tag assumption">Antagande</span></td></tr>
 <tr><td>Former</td><td>Rund, mandel, oval, fyrkant, coffin, stiletto</td><td><span class="tag assumption">Antagande</span></td></tr>
-<tr><td>Längder</td><td>XS–XL (extra kort → extra lång)</td><td><span class="tag assumption">Antagande</span></td></tr>
+<tr><td>Längder</td><td>XS-XL (extra kort → extra lång)</td><td><span class="tag assumption">Antagande</span></td></tr>
 <tr><td>Storlek</td><td>Sizing kit rekommenderas för förstagångsköpare; hemmamätning tillgänglig med tydlig brasklapp</td><td><span class="tag assumption">Antagande</span></td></tr>
 <tr><td>Leverans/retur/ånger vid måttbeställt</td><td>Ej fastställt – kräver Pats bekräftelse innan lansering</td><td><span class="tag needs">Kräver bekräftelse</span></td></tr>
 <tr><td>Betalmetoder</td><td>Platshållare: kort, Swish, Klarna</td><td><span class="tag needs">Kräver bekräftelse</span></td></tr>
@@ -49,17 +60,17 @@
 </table>
 
 <hr>
-<h2>2. Research – sammanfattning</h2>
+<h2>2. Research - sammanfattning</h2>
 <h3>2.1 Genomgång av nuvarande varumärke</h3>
 <p>Loggan visar en etablerad, hantverksmässig positionering: seriftypsnitt, guld/cerise-palett, fjärilsmotiv, "Est. 2012"/15+ år i branschen. Produktfoto visar starkt hantverkskunnande (3D-skulptur, handmålat, chrome, kristaller) – detta är kärnan att bygga vidare på, inte en generisk rosa nagelbutik.</p>
 <h3>2.2 Konkurrensbild (WGnails som referens, ej mall)</h3>
 <table>
 <tr><th>Mönster</th><th>Behåll / Förbättra</th></tr>
-<tr><td>Produktdrivet bläddrande, stort bildfokus</td><td>Behåll – men med NRS bildspråk, ej Etsy-rutnät</td></tr>
-<tr><td>Form/längd väljs som text i dropdown</td><td>Förbättra – visuella väljare med bild på hand</td></tr>
-<tr><td>Storlek ofta otydlig tills kassan</td><td>Förbättra – storlek är en egen, tydlig resa tidigt i flödet</td></tr>
+<tr><td>Produktdrivet bläddrande, stort bildfokus</td><td>Behåll - men med NRS bildspråk, ej Etsy-rutnät</td></tr>
+<tr><td>Form/längd väljs som text i dropdown</td><td>Förbättra - visuella väljare med bild på hand</td></tr>
+<tr><td>Storlek ofta otydlig tills kassan</td><td>Förbättra - storlek är en egen, tydlig resa tidigt i flödet</td></tr>
 <tr><td>Recensioner och kundbilder driver förtroende</td><td>Behåll, men äkta NRS-recensioner, inga vilseledande badges</td></tr>
-<tr><td>Överdrivet många rabattbanners</td><td>Undvik – stämmer inte med premiumkänslan</td></tr>
+<tr><td>Överdrivet många rabattbanners</td><td>Undvik - stämmer inte med premiumkänslan</td></tr>
 </table>
 <h3>2.3 Juridisk checklista (kräver bekräftelse, ingen slutsats dras här)</h3>
 <p>Momsvisning · företags-/kontaktuppgifter · GDPR/integritetspolicy · cookies · leveransvillkor · ångerrätt för måttbeställda/anpassade varor (undantag ska verifieras juridiskt) · reklamationsrätt · betalningsupplysning.</p>
@@ -81,7 +92,7 @@
 <p><strong>Scenario A (prototyp):</strong> Hem → Shop → Filter → Produkt → Välj form/längd → "Jag vet inte min storlek" → Sizing-kit → Kundvagn → Kassa → Bekräftelse.</p>
 
 <hr>
-<h2>5. Vald art direction – "Editorial Nail Atelier"</h2>
+<h2>5. Vald art direction - "Editorial Nail Atelier"</h2>
 <p>Baserat på befintlig logga och produktfoto: svensk återhållsamhet möter handgjord nagelkonst. Generöst vitrum, redaktionell serif-rubrik + ren sans-UI, cerise som primär handling, guld/mässing som återhållsam premiumaccent.</p>
 <table>
 <tr><td><span class="swatch" style="background:#241A1D"></span>Bläck / text — #241A1D</td><td><span class="swatch" style="background:#FBF6F1"></span>Elfenben / botten — #FBF6F1</td></tr>
