@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#EFE3DC; }
+  * { box-sizing:border-box; }
+  a { color:#8C2350; }
+  a:hover { color:#6E1B3F; }
+  .nrs-scroll::-webkit-scrollbar { width:6px; }
+  .nrs-scroll::-webkit-scrollbar-thumb { background:#D8C3B8; border-radius:3px; }
+  @keyframes nrs-fade { from { opacity:0; transform:translateY(6px);} to { opacity:1; transform:translateY(0);} }
+</style>
+</helmet>
+<div style="width:430px; height:900px; margin:24px auto; background:#FBF6F1; border-radius:28px; overflow:hidden; box-shadow:0 30px 60px rgba(36,26,29,.25); position:relative; font-family:'Manrope',sans-serif; display:flex; flex-direction:column;">
+
+  <div style="background:#241A1D; color:#F3E5E0; font-size:12px; text-align:center; padding:6px 0; letter-spacing:.03em;">Fri frakt inom Sverige över 799 kr · Handgjort i Stockholm</div>
+
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid #EFE3DC; background:#FBF6F1; position:relative; z-index:5;">
+    <div onClick="{{ goHome }}" style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+      <img src="assets/logo.png" alt="Nail-Rich Studio" style="width:34px; height:34px; border-radius:50%; object-fit:cover;" />
+      <span style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:18px; color:#241A1D; letter-spacing:.02em;">Nail‑Rich Studio</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span onClick="{{ goToScreen }}" data-screen="shop" style="cursor:pointer; font-size:18px;">⌕</span>
+      <span style="cursor:pointer; font-size:18px;">♡</span>
+      <span onClick="{{ openCart }}" style="cursor:pointer; font-size:14px; position:relative; padding:4px;">
+        🛍
+        <sc-if value="{{ cartCount }}" hint-placeholder-val="{{ false }}">
+          <span style="position:absolute; top:-2px; right:-4px; background:#8C2350; color:#fff; font-size:10px; font-weight:700; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center;">{{ cartCount }}</span>
+        </sc-if>
+      </span>
+    </div>
+  </div>
+
+  <div class="nrs-scroll" style="flex:1; overflow-y:auto; overflow-x:hidden; position:relative; background:#FBF6F1;">
+
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div style="animation:nrs-fade .3s ease;">
+        <div style="position:relative; height:420px; overflow:hidden;">
+          <img src="assets/sample6.jpg" style="width:100%; height:100%; object-fit:cover; object-position:60% 30%;" alt="Handmålade press-on-naglar med rosa linjekonst"/>
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(36,26,29,0) 40%, rgba(36,26,29,.65) 100%);"></div>
+          <div style="position:absolute; bottom:20px; left:20px; right:20px; color:#fff;">
+            <div style="font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#EFC9BE; margin-bottom:6px;">Handgjort i Stockholm sedan 2012</div>
+            <h1 style="font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:600; margin:0 0 14px; line-height:1.1;">Press-on som sitter som gjutna – för att de nästan är det.</h1>
+            <div style="display:flex; gap:10px;">
+              <button onClick="{{ goToScreen }}" data-screen="shop" style="background:#8C2350; color:#fff; border:none; padding:12px 18px; border-radius:2px; font-weight:700; font-size:14px; letter-spacing:.01em; cursor:pointer;">Shoppa press-on</button>
+              <button onClick="{{ goToScreen }}" data-screen="custom" style="background:transparent; color:#fff; border:1px solid rgba(255,255,255,.6); padding:12px 16px; border-radius:2px; font-weight:600; font-size:14px; cursor:pointer;">Skapa ditt set</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#EFE3DC; margin:0 0 4px;">
+          <div onClick="{{ goToShopFiltered }}" data-type="ready" style="background:#FBF6F1; padding:16px 10px; text-align:center; cursor:pointer;">
+            <div style="font-size:22px;">✓</div>
+            <div style="font-size:12px; font-weight:700; margin-top:4px;">Ready to ship</div>
+            <div style="font-size:11px; color:#8a7a7e;">Skickas inom 1–2 dagar</div>
+          </div>
+          <div onClick="{{ goToShopFiltered }}" data-type="made" style="background:#FBF6F1; padding:16px 10px; text-align:center; cursor:pointer;">
+            <div style="font-size:22px;">✂</div>
+            <div style="font-size:12px; font-weight:700; margin-top:4px;">Made to order</div>
+            <div style="font-size:11px; color:#8a7a7e;">Görs på din storlek</div>
+          </div>
+          <div onClick="{{ goToScreen }}" data-screen="custom" style="background:#FBF6F1; padding:16px 10px; text-align:center; cursor:pointer;">
+            <div style="font-size:22px;">✦</div>
+            <div style="font-size:12px; font-weight:700; margin-top:4px;">Custom design</div>
+            <div style="font-size:11px; color:#8a7a7e;">Din idé, vårt hantverk</div>
+          </div>
+        </div>
+
+        <div style="padding:22px 18px 6px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px;">
+            <h2 style="font-family:'Cormorant Garamond',serif; font-size:22px; margin:0;">Nya set</h2>
+            <span onClick="{{ goToScreen }}" data-screen="shop" style="font-size:13px; cursor:pointer; color:#8C2350; font-weight:600;">Se alla →</span>
+          </div>
+          <div style="display:flex; gap:12px; overflow-x:auto; padding-bottom:6px;">
+            <sc-for list="{{ featuredProducts }}" as="p" hint-placeholder-count="3">
+              <div onClick="{{ openProduct }}" data-id="{{ p.id }}" style="flex:0 0 150px; cursor:pointer;">
+                <div style="position:relative; border-radius:4px; overflow:hidden;">
+                  <img src="{{ p.image }}" style="width:150px; height:190px; object-fit:cover; display:block;" alt="{{ p.alt }}"/>
+                  <sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
+                    <span style="position:absolute; top:8px; left:8px; background:#241A1D; color:#fff; font-size:10px; padding:3px 7px; border-radius:2px; letter-spacing:.03em;">{{ p.badge }}</span>
+                  </sc-if>
+                </div>
+                <div style="font-size:13px; font-weight:600; margin-top:8px; color:#241A1D;">{{ p.title }}</div>
+                <div style="font-size:12px; color:#8a7a7e;">{{ p.priceLabel }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:26px 18px;">
+          <h2 style="font-family:'Cormorant Garamond',serif; font-size:22px; margin:0 0 16px;">Så fungerar det</h2>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; gap:12px; align-items:flex-start;">
+              <div style="width:28px; height:28px; border-radius:50%; background:#F3E5E0; color:#8C2350; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">1</div>
+              <div><div style="font-weight:700; font-size:14px;">Välj design</div><div style="font-size:13px; color:#6b5a5e;">Bläddra bland ready-to-ship, made-to-order eller skapa eget.</div></div>
+            </div>
+            <div style="display:flex; gap:12px; align-items:flex-start;">
+              <div style="width:28px; height:28px; border-radius:50%; background:#F3E5E0; color:#8C2350; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">2</div>
+              <div><div style="font-weight:700; font-size:14px;">Hitta din passform</div><div style="font-size:13px; color:#6b5a5e;">Sizing-kit, sparad profil eller mät hemma – du väljer.</div></div>
+            </div>
+            <div style="display:flex; gap:12px; align-items:flex-start;">
+              <div style="width:28px; height:28px; border-radius:50%; background:#F3E5E0; color:#8C2350; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">3</div>
+              <div><div style="font-weight:700; font-size:14px;">Applicera &amp; njut</div><div style="font-size:13px; color:#6b5a5e;">Lim eller tabs, enkel borttagning, spara till nästa gång.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#241A1D; color:#F3E5E0; padding:26px 18px; text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; margin-bottom:8px;">15+ års erfarenhet, i varje set</div>
+          <div style="font-size:13px; color:#cbb7ae; max-width:320px; margin:0 auto;">Vi är samma händer bakom stolen i studion i Handen som bakom varje handgjort set du beställer online.</div>
+        </div>
+
+        <div style="padding:22px 18px 34px; text-align:center; border-top:1px solid #EFE3DC;">
+          <div style="font-size:13px; color:#6b5a5e; margin-bottom:8px;">Vill du hellre boka en tid i studion?</div>
+          <button style="background:transparent; border:1px solid #241A1D; color:#241A1D; padding:10px 18px; font-size:13px; font-weight:600; border-radius:2px; cursor:pointer;">Boka tid →</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isShop }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:nrs-fade .25s ease; padding:16px 16px 30px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <span onClick="{{ goHome }}" style="cursor:pointer; font-size:18px;">←</span>
+          <h1 style="font-family:'Cormorant Garamond',serif; font-size:24px; margin:0;">Shop</h1>
+        </div>
+        <div style="display:flex; gap:8px; overflow-x:auto; margin-bottom:14px; padding-bottom:2px;">
+          <sc-for list="{{ typeFilters }}" as="f" hint-placeholder-count="4">
+            <span onClick="{{ setTypeFilter }}" data-type="{{ f.value }}" style="flex:0 0 auto; white-space:nowrap; font-size:12px; padding:7px 13px; border-radius:20px; cursor:pointer; font-weight:600; background:{{ f.bg }}; color:{{ f.color }}; border:1px solid {{ f.border }};">{{ f.label }}</span>
+          </sc-for>
+        </div>
+        <div style="font-size:12px; color:#8a7a7e; margin-bottom:10px;">{{ resultCount }} set</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <sc-for list="{{ shopProducts }}" as="p" hint-placeholder-count="6">
+            <div onClick="{{ openProduct }}" data-id="{{ p.id }}" style="cursor:pointer;">
+              <div style="position:relative; border-radius:4px; overflow:hidden; background:#F3E5E0;">
+                <img src="{{ p.image }}" style="width:100%; height:170px; object-fit:cover; display:block;" alt="{{ p.alt }}"/>
+                <sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
+                  <span style="position:absolute; top:8px; left:8px; background:#241A1D; color:#fff; font-size:10px; padding:3px 7px; border-radius:2px;">{{ p.badge }}</span>
+                </sc-if>
+                <sc-if value="{{ p.soldOut }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute; inset:0; background:rgba(251,246,241,.72); display:flex; align-items:center; justify-content:center;"><span style="font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:#241A1D;">Slutsåld</span></div>
+                </sc-if>
+              </div>
+              <div style="font-size:13px; font-weight:600; margin-top:8px; color:#241A1D; line-height:1.3;">{{ p.title }}</div>
+              <div style="font-size:11px; color:#8a7a7e; margin-top:1px;">{{ p.shapeLength }}</div>
+              <div style="font-size:12px; color:#241A1D; margin-top:2px;">{{ p.priceLabel }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center; padding:40px 20px; color:#6b5a5e; font-size:13px;">
+            Inga set matchar just nu.<br/>
+            <span onClick="{{ clearFilters }}" style="color:#8C2350; font-weight:600; cursor:pointer;">Rensa filter</span>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:nrs-fade .25s ease; padding-bottom:100px;">
+        <div style="position:relative;">
+          <img src="{{ currentProduct.image }}" style="width:100%; height:340px; object-fit:cover; display:block;" alt="{{ currentProduct.alt }}"/>
+          <span onClick="{{ backFromProduct }}" style="position:absolute; top:14px; left:14px; background:rgba(251,246,241,.9); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px;">←</span>
+          <sc-if value="{{ currentProduct.badge }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute; bottom:14px; left:14px; background:#241A1D; color:#fff; font-size:11px; padding:4px 9px; border-radius:2px;">{{ currentProduct.badge }}</span>
+          </sc-if>
+        </div>
+        <div style="padding:18px 18px 0;">
+          <div style="font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:#A9895C; font-weight:700;">{{ currentProduct.typeLabel }}</div>
+          <h1 style="font-family:'Cormorant Garamond',serif; font-size:24px; margin:6px 0 4px; line-height:1.15;">{{ currentProduct.title }}</h1>
+          <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:10px;">
+            <span style="font-size:19px; font-weight:700; color:#241A1D;">{{ livePrice }}</span>
+            <span style="font-size:11px; color:#8a7a7e;">inkl. moms · pris exempel</span>
+          </div>
+          <p style="font-size:13.5px; color:#4a3d40; line-height:1.6; margin:0 0 16px;">{{ currentProduct.description }}</p>
+
+          <div style="margin-bottom:16px;">
+            <div style="font-size:12px; font-weight:700; margin-bottom:8px; display:flex; justify-content:space-between;"><span>Form</span><span style="font-weight:400; color:#8a7a7e;">{{ selectedShape.label }}</span></div>
+            <div style="display:flex; gap:8px;">
+              <sc-for list="{{ shapeOptions }}" as="s" hint-placeholder-count="5">
+                <div onClick="{{ selectShape }}" data-shape="{{ s.value }}" style="width:44px; height:44px; border-radius:50%; border:2px solid {{ s.border }}; background:{{ s.bg }}; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px;">{{ s.glyph }}</div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="margin-bottom:18px;">
+            <div style="font-size:12px; font-weight:700; margin-bottom:8px; display:flex; justify-content:space-between;"><span>Längd</span><span style="font-weight:400; color:#8a7a7e;">{{ selectedLength.label }}</span></div>
+            <div style="display:flex; gap:8px;">
+              <sc-for list="{{ lengthOptions }}" as="l" hint-placeholder-count="5">
+                <div onClick="{{ selectLength }}" data-length="{{ l.value }}" style="flex:1; text-align:center; padding:8px 0; border-radius:2px; border:1px solid {{ l.border }}; background:{{ l.bg }}; color:{{ l.color }}; font-size:11px; font-weight:600; cursor:pointer;">{{ l.label }}</div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="background:#F3E5E0; border-radius:6px; padding:14px; margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-size:12px; font-weight:700;">Storlek</span>
+              <span onClick="{{ goToScreen }}" data-screen="sizing" style="font-size:12px; color:#8C2350; font-weight:700; cursor:pointer;">Jag vet inte min storlek →</span>
+            </div>
+            <sc-if value="{{ hasSizeProfile }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13px; color:#241A1D;">✓ Använder profil "{{ savedProfileName }}"</div>
+            </sc-if>
+            <sc-if value="{{ !hasSizeProfile }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size:12.5px; color:#7A4B2A;">Ingen storlek vald ännu — vi rekommenderar en sizing-kit innan ditt första köp.</div>
+            </sc-if>
+          </div>
+
+          <div style="border-top:1px solid #EFE3DC; padding:14px 0;">
+            <div onClick="{{ toggleAccordion }}" data-key="included" style="display:flex; justify-content:space-between; cursor:pointer; font-size:13px; font-weight:700;"><span>Det här ingår</span><span>{{ accordionIcon.included }}</span></div>
+            <sc-if value="{{ openAccordion.included }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px; color:#4a3d40; margin-top:8px; line-height:1.6;">10 handmålade nagelspetsar, nagellim + adhesive tabs, mini-fil, träpinne för applicering, förvaringsask.</div>
+            </sc-if>
+          </div>
+          <div style="border-top:1px solid #EFE3DC; padding:14px 0;">
+            <div onClick="{{ toggleAccordion }}" data-key="production" style="display:flex; justify-content:space-between; cursor:pointer; font-size:13px; font-weight:700;"><span>Produktion &amp; leverans</span><span>{{ accordionIcon.production }}</span></div>
+            <sc-if value="{{ openAccordion.production }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px; color:#4a3d40; margin-top:8px; line-height:1.6;">{{ currentProduct.productionNote }}</div>
+            </sc-if>
+          </div>
+          <div style="border-top:1px solid #EFE3DC; padding:14px 0;">
+            <div onClick="{{ toggleAccordion }}" data-key="care" style="display:flex; justify-content:space-between; cursor:pointer; font-size:13px; font-weight:700;"><span>Applicering, borttagning &amp; skötsel</span><span>{{ accordionIcon.care }}</span></div>
+            <sc-if value="{{ openAccordion.care }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px; color:#4a3d40; margin-top:8px; line-height:1.6;">Applicera med lim för längre hållbarhet eller adhesive tabs för skonsam, återanvändningsbar fästning. Ta bort varsamt med värme och olja – undvik att dra loss. Förvara torrt i asken mellan användningar.</div>
+            </sc-if>
+          </div>
+        </div>
+
+        <div style="position:sticky; bottom:0; left:0; right:0; background:#FBF6F1; border-top:1px solid #EFE3DC; padding:12px 18px; display:flex; align-items:center; gap:12px; margin-top:6px;">
+          <div style="flex:1;">
+            <div style="font-size:15px; font-weight:700;">{{ livePrice }}</div>
+            <div style="font-size:11px; color:#8a7a7e;">{{ currentProduct.productionShort }}</div>
+          </div>
+          <button onClick="{{ addToCart }}" style="background:#8C2350; color:#fff; border:none; padding:13px 22px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Lägg i kundvagn</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSizing }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:nrs-fade .25s ease; padding:18px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+          <span onClick="{{ backFromSizing }}" style="cursor:pointer; font-size:18px;">←</span>
+          <h1 style="font-family:'Cormorant Garamond',serif; font-size:22px; margin:0;">Hitta din storlek</h1>
+        </div>
+        <p style="font-size:13px; color:#4a3d40; margin:0 0 18px;">Rätt storlek är det viktigaste för att ditt set ska kännas och sitta perfekt. Välj det sätt som passar dig.</p>
+
+        <div onClick="{{ selectSizingMethod }}" data-method="kit" style="border:2px solid #8C2350; border-radius:6px; padding:16px; margin-bottom:12px; cursor:pointer; background:#FBF6F1;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div>
+              <div style="font-size:11px; font-weight:700; color:#8C2350; text-transform:uppercase; letter-spacing:.03em;">Rekommenderas</div>
+              <div style="font-size:15px; font-weight:700; margin-top:2px;">Beställ en sizing-kit</div>
+            </div>
+            <div style="font-size:13px; font-weight:700;">149 kr*</div>
+          </div>
+          <div style="font-size:12.5px; color:#4a3d40; margin-top:8px; line-height:1.55;">Provtips i alla storlekar hemskickade. Mest träffsäkra sättet, särskilt vid din första beställning.</div>
+          <div style="font-size:11px; color:#8a7a7e; margin-top:6px;">*Pris exempel, väntar bekräftelse</div>
+        </div>
+
+        <div onClick="{{ selectSizingMethod }}" data-method="measure" style="border:1px solid #E7D4CC; border-radius:6px; padding:16px; margin-bottom:12px; cursor:pointer;">
+          <div style="font-size:15px; font-weight:700;">Mät hemma</div>
+          <div style="font-size:12.5px; color:#4a3d40; margin-top:6px; line-height:1.55;">Mät bredaste punkten på alla tio naglar med en tumstocksremsa. Något mindre exakt än en sizing-kit, men fungerar bra med noggrann mätning.</div>
+        </div>
+
+        <div onClick="{{ selectSizingMethod }}" data-method="profile" style="border:1px solid #E7D4CC; border-radius:6px; padding:16px; cursor:pointer;">
+          <div style="font-size:15px; font-weight:700;">Använd sparad profil</div>
+          <div style="font-size:12.5px; color:#4a3d40; margin-top:6px; line-height:1.55;">Har du handlat hos oss förut? Välj en tidigare sparad nagelprofil.</div>
+        </div>
+
+        <sc-if value="{{ sizingMethodSelected == 'kit' }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:22px; padding-top:18px; border-top:1px solid #EFE3DC;">
+            <div style="font-size:13px; font-weight:700; margin-bottom:10px;">Sizing-kit tillagd</div>
+            <div style="font-size:12.5px; color:#4a3d40; line-height:1.6; margin-bottom:14px;">Vi skickar kitet separat. När du mätt klart sparar du din nagelprofil och kan slutföra det här setet direkt utan att börja om.</div>
+            <button onClick="{{ confirmSizingAndReturn }}" style="width:100%; background:#8C2350; color:#fff; border:none; padding:13px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Fortsätt till kundvagn</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ sizingMethodSelected == 'measure' }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:22px; padding-top:18px; border-top:1px solid #EFE3DC;">
+            <div style="font-size:13px; font-weight:700; margin-bottom:10px;">Mät dina tio naglar</div>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:14px;">
+              <sc-for list="{{ fingerNames }}" as="f" hint-placeholder-count="5">
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12.5px; padding:8px 10px; background:#F3E5E0; border-radius:4px;">
+                  <span>{{ f }} (V / H)</span>
+                  <span style="color:#8a7a7e;">mm / mm</span>
+                </div>
+              </sc-for>
+            </div>
+            <label style="display:flex; gap:8px; align-items:flex-start; font-size:12px; color:#4a3d40; margin-bottom:14px;">
+              <input type="checkbox" onChange="{{ toggleMeasureConfirm }}" style="margin-top:2px;"/>
+              Jag bekräftar att jag mätt alla tio naglar noggrant enligt guiden.
+            </label>
+            <button onClick="{{ confirmSizingAndReturn }}" disabled="{{ !measureConfirmed }}" style="width:100%; background:{{ measureConfirmed ? '#8C2350' : '#D8C3B8' }}; color:#fff; border:none; padding:13px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Spara &amp; fortsätt till kundvagn</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ sizingMethodSelected == 'profile' }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:22px; padding-top:18px; border-top:1px solid #EFE3DC;">
+            <div onClick="{{ pickSavedProfile }}" style="border:1px solid #E7D4CC; border-radius:6px; padding:12px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <div style="font-size:13px; font-weight:700;">Pat – kort mandel</div>
+                <div style="font-size:11.5px; color:#8a7a7e;">Sparad 14 mars 2026</div>
+              </div>
+              <span style="font-size:12px; color:#8C2350; font-weight:700;">Välj</span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCustom }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:nrs-fade .25s ease; padding:18px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+          <span onClick="{{ goHome }}" style="cursor:pointer; font-size:18px;">←</span>
+          <h1 style="font-family:'Cormorant Garamond',serif; font-size:22px; margin:0;">Skapa ditt set</h1>
+        </div>
+        <p style="font-size:13px; color:#4a3d40; line-height:1.6; margin:0 0 16px;">Har du en idé, en bild eller ett tillfälle i åtanke? Berätta för oss så designar vi ett unikt Nail‑Rich Studio-set utifrån din inspiration – aldrig en direkt kopia av någon annans konstverk.</p>
+        <div style="background:#F3E5E0; border-radius:6px; padding:14px; font-size:12.5px; color:#4a3d40; margin-bottom:18px; line-height:1.6;">Riktpris: 450–1200 kr beroende på komplexitet*. Produktionstid: 2–4 veckor*.<br/><span style="color:#8a7a7e;">*Exempel, väntar bekräftelse från studion.</span></div>
+        <div style="border:1px dashed #C9A895; border-radius:6px; padding:26px; text-align:center; color:#8a7a7e; font-size:12.5px; margin-bottom:16px;">📎 Ladda upp inspirationsbilder (dra hit eller välj fil)</div>
+        <button style="width:100%; background:#8C2350; color:#fff; border:none; padding:13px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Starta din förfrågan</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isConfirmation }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:nrs-fade .25s ease; padding:40px 24px; text-align:center;">
+        <div style="width:56px; height:56px; border-radius:50%; background:#E4EEE8; color:#2F6B55; font-size:28px; display:flex; align-items:center; justify-content:center; margin:0 auto 18px;">✓</div>
+        <h1 style="font-family:'Cormorant Garamond',serif; font-size:24px; margin:0 0 8px;">Tack för din beställning!</h1>
+        <div style="font-size:13px; color:#4a3d40; margin-bottom:20px;">Ordernummer <strong>#NRS-10482</strong></div>
+        <div style="background:#F3E5E0; border-radius:6px; padding:16px; text-align:left; font-size:12.5px; color:#4a3d40; line-height:1.7; margin-bottom:20px;">
+          Din sizing-kit skickas inom 1–2 dagar. När du mätt klart loggar du in och sparar din nagelprofil – då slutför vi din beställning direkt utan att du behöver välja om.
+        </div>
+        <button onClick="{{ goHome }}" style="background:#241A1D; color:#fff; border:none; padding:12px 20px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Till startsidan</button>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeCart }}" style="position:absolute; inset:0; background:rgba(36,26,29,.45); z-index:20;"></div>
+    <div style="position:absolute; top:0; right:0; bottom:0; width:82%; max-width:340px; background:#FBF6F1; z-index:21; display:flex; flex-direction:column; box-shadow:-8px 0 24px rgba(0,0,0,.15);">
+      <div style="padding:16px; border-bottom:1px solid #EFE3DC; display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600;">Kundvagn</span>
+        <span onClick="{{ closeCart }}" style="cursor:pointer; font-size:18px;">✕</span>
+      </div>
+      <div style="flex:1; overflow-y:auto; padding:14px;">
+        <sc-if value="{{ cartCount }}" hint-placeholder-val="{{ false }}">
+          <sc-for list="{{ cartItems }}" as="c" hint-placeholder-count="1">
+            <div style="display:flex; gap:10px; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid #EFE3DC;">
+              <img src="{{ c.image }}" style="width:60px; height:74px; object-fit:cover; border-radius:3px;" alt="{{ c.title }}"/>
+              <div style="flex:1;">
+                <div style="font-size:13px; font-weight:700;">{{ c.title }}</div>
+                <div style="font-size:11.5px; color:#8a7a7e; margin-top:2px;">{{ c.shapeLength }}</div>
+                <sc-if value="{{ c.sizingWarning }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:11px; color:#A43838; margin-top:3px;">⚠ Storlek ej vald</div>
+                </sc-if>
+                <div style="font-size:12.5px; font-weight:700; margin-top:4px;">{{ c.priceLabel }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </sc-if>
+        <sc-if value="{{ !cartCount }}" hint-placeholder-val="{{ true }}">
+          <div style="text-align:center; padding:40px 10px; color:#8a7a7e; font-size:13px;">Din kundvagn är tom.</div>
+        </sc-if>
+      </div>
+      <div style="padding:16px; border-top:1px solid #EFE3DC;">
+        <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:12px;"><span>Delsumma</span><strong>{{ cartSubtotal }}</strong></div>
+        <button onClick="{{ goToCheckout }}" disabled="{{ !cartCount }}" style="width:100%; background:{{ cartCount ? '#8C2350' : '#D8C3B8' }}; color:#fff; border:none; padding:13px; border-radius:2px; font-weight:700; font-size:13px; cursor:pointer;">Till kassan</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isCheckout }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; inset:0; background:#FBF6F1; z-index:22; display:flex; flex-direction:column;">
+      <div style="padding:14px 16px; border-bottom:1px solid #EFE3DC; display:flex; align-items:center; gap:8px;">
+        <span onClick="{{ closeCheckout }}" style="cursor:pointer; font-size:18px;">←</span>
+        <span style="font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600;">Kassa</span>
+      </div>
+      <div class="nrs-scroll" style="flex:1; overflow-y:auto; padding:18px;">
+        <div style="font-size:12px; font-weight:700; color:#8C2350; margin-bottom:8px;">1. Leveransadress</div>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:20px;">
+          <input placeholder="Namn" style="padding:11px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px;"/>
+          <input placeholder="E-post" style="padding:11px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px;"/>
+          <input placeholder="Adress" style="padding:11px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px;"/>
+          <div style="display:flex; gap:8px;">
+            <input placeholder="Postnr" style="flex:1; padding:11px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px;"/>
+            <input placeholder="Ort" style="flex:2; padding:11px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px;"/>
+          </div>
+        </div>
+        <div style="font-size:12px; font-weight:700; color:#8C2350; margin-bottom:8px;">2. Betalning</div>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:20px;">
+          <div style="padding:12px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px; display:flex; justify-content:space-between;"><span>Swish</span><span style="color:#8a7a7e; font-size:11px;">platshållare</span></div>
+          <div style="padding:12px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px; display:flex; justify-content:space-between;"><span>Kort</span><span style="color:#8a7a7e; font-size:11px;">platshållare</span></div>
+          <div style="padding:12px; border:1px solid #E7D4CC; border-radius:3px; font-size:13px; display:flex; justify-content:space-between;"><span>Klarna</span><span style="color:#8a7a7e; font-size:11px;">platshållare</span></div>
+        </div>
+        <div style="font-size:12px; font-weight:700; color:#8C2350; margin-bottom:8px;">3. Sammanfattning</div>
+        <div style="background:#F3E5E0; border-radius:6px; padding:14px; font-size:13px; margin-bottom:6px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>Delsumma</span><span>{{ cartSubtotal }}</span></div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;"><span>Frakt</span><span>49 kr</span></div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px; color:#8a7a7e; font-size:11.5px;"><span>varav moms (25%)</span><span>{{ vatAmount }}</span></div>
+          <div style="display:flex; justify-content:space-between; font-weight:700; border-top:1px solid #E7D4CC; padding-top:8px;"><span>Totalt</span><span>{{ cartTotal }}</span></div>
+        </div>
+      </div>
+      <div style="padding:14px 18px; border-top:1px solid #EFE3DC;">
+        <button onClick="{{ placeOrder }}" style="width:100%; background:#8C2350; color:#fff; border:none; padding:14px; border-radius:2px; font-weight:700; font-size:14px; cursor:pointer;">Slutför köp — {{ cartTotal }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const PRODUCTS = [
+  { id:'p1', title:'Rosa Linjekonst', typeLabel:'Made to order', type:'made', badge:'Ny', image:'assets/sample6.jpg', alt:'Naturell nagel med handmålad rosa linjekonst och hjärtan', shapeLength:'Oval · Medium', basePrice:449, priceLabel:'Från 449 kr', description:'Ett minimalistiskt set med handmålad linjekonst i rosa – enkelt nog för vardagen, personligt nog att bära varje dag.', productionNote:'Görs på beställning efter din valda storlek. Beräknad produktionstid 5–7 arbetsdagar innan avsändning.', productionShort:'Made to order · 5–7 dagar', soldOut:false },
+  { id:'p2', title:'Jade Bloom 3D', typeLabel:'Made to order', type:'made', badge:'Bästsäljare', image:'assets/sample2.jpg', alt:'Skulpterade 3D-naglar i jadegrönt och puder med blomdetaljer', shapeLength:'Coffin · Long', basePrice:690, priceLabel:'Från 690 kr', description:'Handskulpterad 3D-konst i jade och puderrosa med blad- och blomdetaljer. Varje set är unikt handmålat i vår studio.', productionNote:'Avancerad 3D-konst kräver längre produktionstid: 8–10 arbetsdagar.', productionShort:'Made to order · 8–10 dagar', soldOut:false },
+  { id:'p3', title:'Havspärla Chrome', typeLabel:'Ready to ship', type:'ready', badge:null, image:'assets/sample5.jpg', alt:'Blå chrome-naglar med pärldetaljer i snäckform', shapeLength:'Mandel · Medium', basePrice:520, priceLabel:'520 kr', description:'Djupblå chrome-yta med handsatta pärlor – inspirerad av havets skimmer. Begränsat antal i lager, redo att skickas direkt.', productionNote:'Färdigt set i lager – skickas inom 1–2 arbetsdagar.', productionShort:'Ready to ship · 1–2 dagar', soldOut:false },
+  { id:'p4', title:'Spindelnät Edition', typeLabel:'Säsong · Begränsad', type:'ready', badge:'Begränsad', image:'assets/sample3.jpg', alt:'Höstinspirerade naglar med handmålat spindelnät i brunt och beige', shapeLength:'Coffin · Long', basePrice:590, priceLabel:'590 kr', description:'Säsongens mörka favorit – handmålat spindelnät i varma jordtoner. Begränsad upplaga, tillverkas inte om.', productionNote:'Säsongsset i begränsad upplaga – skickas inom 2–3 arbetsdagar.', productionShort:'Begränsad · 2–3 dagar', soldOut:true },
+  { id:'p5', title:'Regnbågslek', typeLabel:'Ready to ship', type:'ready', badge:null, image:'assets/sample1.jpg', alt:'Lekfullt regnbågsset med hjärtan och färgglada bågar', shapeLength:'Mandel · Short', basePrice:429, priceLabel:'429 kr', description:'Ett glädjefyllt set i alla regnbågens färger, med hjärtdetaljer på utvalda naglar. Alltid på lager i vanliga storlekar.', productionNote:'Färdigt set i lager – skickas inom 1–2 arbetsdagar.', productionShort:'Ready to ship · 1–2 dagar', soldOut:false },
+  { id:'p6', title:'Regnbågsprickar', typeLabel:'Ready to ship', type:'ready', badge:'Ny', image:'assets/sample8.jpg', alt:'Regnbågsset med färgblocksränder och prickmönster', shapeLength:'Coffin · Medium', basePrice:459, priceLabel:'459 kr', description:'Djärva färgblock möter finmålade prickar i regnbågens alla nyanser – ett set som sticker ut i mängden.', productionNote:'Färdigt set i lager – skickas inom 1–2 arbetsdagar.', productionShort:'Ready to ship · 1–2 dagar', soldOut:false }
+];
+const SHAPES = [
+  { value:'round', label:'Rund', glyph:'●' },
+  { value:'almond', label:'Mandel', glyph:'◐' },
+  { value:'oval', label:'Oval', glyph:'⬭' },
+  { value:'square', label:'Fyrkant', glyph:'▢' },
+  { value:'coffin', label:'Coffin', glyph:'▱' }
+];
+const LENGTHS = [
+  { value:'xs', label:'XS' }, { value:'s', label:'S' }, { value:'m', label:'M' }, { value:'l', label:'L' }, { value:'xl', label:'XL' }
+];
+const FINGERS = ['Tumme','Pekfinger','Långfinger','Ringfinger','Lillfinger'];
+
+class Component extends DCLogic {
+  state = {
+    screen: 'home',
+    prevScreen: 'shop',
+    typeFilter: 'all',
+    currentProductId: null,
+    shape: 'oval',
+    length: 'm',
+    hasSizeProfile: false,
+    savedProfileName: 'Pat – kort mandel',
+    openAccordion: { included: true, production: false, care: false },
+    cartOpen: false,
+    cartItems: [],
+    sizingMethodSelected: null,
+    measureConfirmed: false,
+    pendingConfig: null
+  };
+
+  goHome = () => this.setState({ screen: 'home', cartOpen: false });
+  goToScreen = (e) => { const s = e.currentTarget.dataset.screen; this.setState({ screen: s }); };
+  goToShopFiltered = (e) => { this.setState({ screen: 'shop', typeFilter: e.currentTarget.dataset.type }); };
+  setTypeFilter = (e) => this.setState({ typeFilter: e.currentTarget.dataset.type });
+  clearFilters = () => this.setState({ typeFilter: 'all' });
+
+  openProduct = (e) => {
+    const id = e.currentTarget.dataset.id;
+    this.setState({ screen: 'product', prevScreen: this.state.screen, currentProductId: id, shape: 'oval', length: 'm' });
+  };
+  backFromProduct = () => this.setState({ screen: this.state.prevScreen });
+
+  selectShape = (e) => this.setState({ shape: e.currentTarget.dataset.shape });
+  selectLength = (e) => this.setState({ length: e.currentTarget.dataset.length });
+
+  toggleAccordion = (e) => {
+    const key = e.currentTarget.dataset.key;
+    this.setState(s => ({ openAccordion: { ...s.openAccordion, [key]: !s.openAccordion[key] } }));
+  };
+
+  addToCart = () => {
+    const p = PRODUCTS.find(x => x.id === this.state.currentProductId);
+    if (!p) return;
+    const shapeLabel = SHAPES.find(s => s.value === this.state.shape)?.label;
+    const lengthLabel = LENGTHS.find(l => l.value === this.state.length)?.label;
+    const item = {
+      id: p.id + '-' + Date.now(),
+      title: p.title,
+      image: p.image,
+      shapeLength: shapeLabel + ' · ' + lengthLabel,
+      priceLabel: p.priceLabel,
+      price: p.basePrice,
+      sizingWarning: !this.state.hasSizeProfile
+    };
+    this.setState(s => ({ cartItems: [...s.cartItems, item], cartOpen: true }));
+  };
+
+  openCart = () => this.setState({ cartOpen: true });
+  closeCart = () => this.setState({ cartOpen: false });
+
+  goToScreenFromSizing = () => {};
+  backFromSizing = () => this.setState({ screen: 'product' });
+
+  selectSizingMethod = (e) => this.setState({ sizingMethodSelected: e.currentTarget.dataset.method, measureConfirmed: false });
+  toggleMeasureConfirm = (e) => this.setState({ measureConfirmed: e.target.checked });
+  pickSavedProfile = () => this.setState({ hasSizeProfile: true, sizingMethodSelected: null, screen: 'product' });
+
+  confirmSizingAndReturn = () => {
+    if (this.state.sizingMethodSelected === 'measure' && !this.state.measureConfirmed) return;
+    this.setState({ hasSizeProfile: this.state.sizingMethodSelected === 'measure', screen: this.state.sizingMethodSelected === 'kit' ? 'checkout-from-sizing' : 'product' });
+    if (this.state.sizingMethodSelected === 'kit') {
+      setTimeout(() => this.setState({ screen: 'product', cartOpen: true }), 0);
+    }
+  };
+
+  goToCheckout = () => this.setState({ screen: 'checkout', cartOpen: false });
+  closeCheckout = () => this.setState({ screen: this.state.prevScreen === 'checkout' ? 'shop' : this.state.screen, cartOpen: true });
+  placeOrder = () => this.setState({ screen: 'confirmation', cartItems: [] });
+
+  renderVals() {
+    const s = this.state;
+    const currentProduct = PRODUCTS.find(p => p.id === s.currentProductId) || PRODUCTS[0];
+    const shopProducts = s.typeFilter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.type === s.typeFilter);
+    const cartCount = s.cartItems.length;
+    const cartSubtotalNum = s.cartItems.reduce((sum, c) => sum + (c.price || 0), 0);
+    const shipping = cartCount ? 49 : 0;
+    const totalNum = cartSubtotalNum + shipping;
+
+    return {
+      isHome: s.screen === 'home',
+      isShop: s.screen === 'shop',
+      isProduct: s.screen === 'product',
+      isSizing: s.screen === 'sizing',
+      isCustom: s.screen === 'custom',
+      isCheckout: s.screen === 'checkout',
+      isConfirmation: s.screen === 'confirmation',
+      goHome: this.goHome, goToScreen: this.goToScreen, goToShopFiltered: this.goToShopFiltered,
+      featuredProducts: PRODUCTS.slice(0, 4),
+      typeFilters: [
+        { value:'all', label:'Alla', bg: s.typeFilter==='all'?'#8C2350':'#F3E5E0', color: s.typeFilter==='all'?'#fff':'#241A1D', border: s.typeFilter==='all'?'#8C2350':'#E7D4CC' },
+        { value:'ready', label:'Ready to ship', bg: s.typeFilter==='ready'?'#8C2350':'#F3E5E0', color: s.typeFilter==='ready'?'#fff':'#241A1D', border: s.typeFilter==='ready'?'#8C2350':'#E7D4CC' },
+        { value:'made', label:'Made to order', bg: s.typeFilter==='made'?'#8C2350':'#F3E5E0', color: s.typeFilter==='made'?'#fff':'#241A1D', border: s.typeFilter==='made'?'#8C2350':'#E7D4CC' }
+      ],
+      setTypeFilter: this.setTypeFilter, clearFilters: this.clearFilters,
+      resultCount: shopProducts.length,
+      shopProducts, noResults: shopProducts.length === 0,
+      openProduct: this.openProduct, backFromProduct: this.backFromProduct,
+      currentProduct,
+      selectedShape: SHAPES.find(x => x.value === s.shape),
+      selectedLength: LENGTHS.find(x => x.value === s.length),
+      shapeOptions: SHAPES.map(x => ({ ...x, bg: s.shape===x.value?'#8C2350':'#F3E5E0', border: s.shape===x.value?'#8C2350':'#E7D4CC' })).map(x=>({...x, glyph:x.glyph})),
+      lengthOptions: LENGTHS.map(x => ({ ...x, bg: s.length===x.value?'#8C2350':'#FBF6F1', color: s.length===x.value?'#fff':'#241A1D', border: s.length===x.value?'#8C2350':'#E7D4CC' })),
+      selectShape: this.selectShape, selectLength: this.selectLength,
+      livePrice: currentProduct.priceLabel,
+      hasSizeProfile: s.hasSizeProfile, savedProfileName: s.savedProfileName,
+      openAccordion: s.openAccordion,
+      accordionIcon: { included: s.openAccordion.included?'–':'+', production: s.openAccordion.production?'–':'+', care: s.openAccordion.care?'–':'+' },
+      toggleAccordion: this.toggleAccordion,
+      addToCart: this.addToCart,
+      cartOpen: s.cartOpen, openCart: this.openCart, closeCart: this.closeCart,
+      cartItems: s.cartItems, cartCount,
+      cartSubtotal: cartSubtotalNum.toLocaleString('sv-SE') + ' kr',
+      cartTotal: totalNum.toLocaleString('sv-SE') + ' kr',
+      vatAmount: Math.round(totalNum * 0.2).toLocaleString('sv-SE') + ' kr',
+      goToCheckout: this.goToCheckout, closeCheckout: this.closeCheckout, placeOrder: this.placeOrder,
+      backFromSizing: this.backFromSizing,
+      sizingMethodSelected: s.sizingMethodSelected, selectSizingMethod: this.selectSizingMethod,
+      measureConfirmed: s.measureConfirmed, toggleMeasureConfirm: this.toggleMeasureConfirm,
+      fingerNames: FINGERS, pickSavedProfile: this.pickSavedProfile,
+      confirmSizingAndReturn: this.confirmSizingAndReturn
+    };
+  }
+}
+
+</script>
+</body>
+</html>

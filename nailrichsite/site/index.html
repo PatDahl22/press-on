@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nail-Rich Studio – Handgjorda press-on-naglar</title>
+<meta name="description" content="Handgjorda press-on-naglar från Nail-Rich Studio i Stockholm. Ready to ship, made to order och custom design – med guidad storleksresa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="assets/logo.png">
+</head>
+<body>
+
+<div class="announce">Fri frakt inom Sverige över 799 kr · Handgjort i Stockholm</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <button class="brand" data-nav="home" aria-label="Till startsidan">
+      <img src="assets/logo.png" alt="Nail-Rich Studio">
+      <span class="brand-name">Nail&#8209;Rich Studio</span>
+    </button>
+    <nav class="main-nav" aria-label="Huvudmeny">
+      <a href="#" data-nav="shop">Shop</a>
+      <a href="#" data-nav="custom">Skapa ditt set</a>
+      <a href="#" data-nav="sizing">Storlek</a>
+      <a href="#" data-nav="home" data-scroll="how">Så funkar det</a>
+    </nav>
+    <div class="header-actions">
+      <button class="book-link" type="button">Boka tid</button>
+      <button class="icon-btn" data-nav="shop" aria-label="Sök">&#9906;</button>
+      <button class="icon-btn" aria-label="Favoriter">&#9825;</button>
+      <button class="icon-btn" id="cart-btn" aria-label="Kundvagn">
+        &#128717;
+        <span class="cart-count hidden" id="cart-count">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- HOME -->
+  <section class="screen" id="screen-home">
+    <div class="hero">
+      <img src="assets/sample6.jpg" alt="Handmålade press-on-naglar med rosa linjekonst">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Handgjort i Stockholm sedan 2012</div>
+        <h1 class="hero-title">Press-on som sitter som gjutna – för att de nästan är det.</h1>
+        <div class="hero-cta">
+          <button class="btn btn-primary" data-nav="shop">Shoppa press-on</button>
+          <button class="btn btn-ghost-light" data-nav="custom">Skapa ditt set</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="type-tiles" style="margin-top:0;">
+        <button class="type-tile" data-shop-type="ready">
+          <div class="glyph">&#10003;</div>
+          <div class="t-title">Ready to ship</div>
+          <div class="t-sub">Skickas inom 1–2 dagar</div>
+        </button>
+        <button class="type-tile" data-shop-type="made">
+          <div class="glyph">&#9986;</div>
+          <div class="t-title">Made to order</div>
+          <div class="t-sub">Görs på din storlek</div>
+        </button>
+        <button class="type-tile" data-nav="custom">
+          <div class="glyph">&#10022;</div>
+          <div class="t-title">Custom design</div>
+          <div class="t-sub">Din idé, vårt hantverk</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="wrap section">
+      <div class="section-head">
+        <h2 class="section-title">Nya set</h2>
+        <button class="link-more" data-nav="shop">Se alla →</button>
+      </div>
+      <div class="product-scroll" id="featured-list"></div>
+    </div>
+
+    <div class="wrap section" id="how" style="padding-top:0;">
+      <h2 class="section-title" style="margin-bottom:20px;">Så fungerar det</h2>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div><div class="s-title">Välj design</div><div class="s-body">Bläddra bland ready-to-ship, made-to-order eller skapa eget.</div></div></div>
+        <div class="step"><div class="num">2</div><div><div class="s-title">Hitta din passform</div><div class="s-body">Sizing-kit, sparad profil eller mät hemma – du väljer.</div></div></div>
+        <div class="step"><div class="num">3</div><div><div class="s-title">Applicera &amp; njut</div><div class="s-body">Lim eller tabs, enkel borttagning, spara till nästa gång.</div></div></div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="quote">15+ års erfarenhet, i varje set</div>
+      <div class="quote-sub">Vi är samma händer bakom stolen i studion i Handen som bakom varje handgjort set du beställer online.</div>
+    </div>
+
+    <div class="wrap book-band">
+      <p>Vill du hellre boka en tid i studion?</p>
+      <button class="btn btn-ghost">Boka tid →</button>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section class="screen hidden" id="screen-shop">
+    <div class="wrap section" style="padding-top:24px;">
+      <div class="back-row">
+        <button class="back-btn" data-nav="home" aria-label="Tillbaka">←</button>
+        <h1 class="page-title">Shop</h1>
+      </div>
+      <div class="filter-row" id="filter-row" role="group" aria-label="Filtrera efter produkttyp"></div>
+      <div class="result-count" id="result-count"></div>
+      <div class="product-grid" id="shop-list"></div>
+      <div class="hidden" id="no-results" style="text-align:center; padding:48px 20px; color:#6b5a5e; font-size:14px;">
+        Inga set matchar just nu.<br>
+        <button class="link-more" id="clear-filters" style="margin-top:8px;">Rensa filter</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT -->
+  <section class="screen hidden" id="screen-product">
+    <div class="pdp">
+      <div class="pdp-media">
+        <img id="pdp-img" src="" alt="">
+        <button class="pdp-back" data-back-product aria-label="Tillbaka">←</button>
+        <span class="badge pdp-badge hidden" id="pdp-badge"></span>
+      </div>
+      <div class="pdp-body">
+        <div class="pdp-type" id="pdp-type"></div>
+        <h1 class="pdp-title" id="pdp-title"></h1>
+        <div class="pdp-price-row">
+          <span class="pdp-price" id="pdp-price"></span>
+          <span class="pdp-price-note">inkl. moms · pris exempel</span>
+        </div>
+        <p class="pdp-desc" id="pdp-desc"></p>
+
+        <div class="config-group">
+          <div class="config-label"><span>Form</span><span class="val" id="shape-val"></span></div>
+          <div class="shape-opts" id="shape-opts" role="group" aria-label="Välj form"></div>
+        </div>
+
+        <div class="config-group">
+          <div class="config-label"><span>Längd</span><span class="val" id="length-val"></span></div>
+          <div class="length-opts" id="length-opts" role="group" aria-label="Välj längd"></div>
+        </div>
+
+        <div class="size-box">
+          <div class="size-box-head">
+            <span class="lbl">Storlek</span>
+            <button class="size-help-link" data-nav="sizing">Jag vet inte min storlek →</button>
+          </div>
+          <div id="size-info"></div>
+        </div>
+
+        <div id="accordions"></div>
+
+        <div class="pdp-add-inline" style="margin-top:24px; align-items:center; gap:16px;">
+          <div class="sb-info">
+            <div class="sb-price" id="pdp-inline-price"></div>
+            <div class="sb-note" id="pdp-inline-note"></div>
+          </div>
+          <button class="btn btn-primary" data-add-cart>Lägg i kundvagn</button>
+        </div>
+      </div>
+    </div>
+    <div class="sticky-bar">
+      <div class="sb-info">
+        <div class="sb-price" id="pdp-sticky-price"></div>
+        <div class="sb-note" id="pdp-sticky-note"></div>
+      </div>
+      <button class="btn btn-primary" data-add-cart>Lägg i kundvagn</button>
+    </div>
+  </section>
+
+  <!-- SIZING -->
+  <section class="screen hidden" id="screen-sizing">
+    <div class="wrap section" style="padding-top:24px; max-width:720px;">
+      <div class="back-row">
+        <button class="back-btn" data-back-sizing aria-label="Tillbaka">←</button>
+        <h1 class="page-title">Hitta din storlek</h1>
+      </div>
+      <p class="sizing-intro">Rätt storlek är det viktigaste för att ditt set ska kännas och sitta perfekt. Välj det sätt som passar dig.</p>
+
+      <button class="method-card recommended" data-method="kit" aria-pressed="false">
+        <div class="method-head">
+          <div>
+            <div class="method-tag">Rekommenderas</div>
+            <div class="method-title">Beställ en sizing-kit</div>
+          </div>
+          <div class="method-price">149 kr*</div>
+        </div>
+        <div class="method-body">Provtips i alla storlekar hemskickade. Mest träffsäkra sättet, särskilt vid din första beställning.</div>
+        <div class="method-note">*Pris exempel, väntar bekräftelse</div>
+      </button>
+
+      <button class="method-card" data-method="measure" aria-pressed="false">
+        <div class="method-title">Mät hemma</div>
+        <div class="method-body">Mät bredaste punkten på alla tio naglar med en tumstocksremsa. Något mindre exakt än en sizing-kit, men fungerar bra med noggrann mätning.</div>
+      </button>
+
+      <button class="method-card" data-method="profile" aria-pressed="false">
+        <div class="method-title">Använd sparad profil</div>
+        <div class="method-body">Har du handlat hos oss förut? Välj en tidigare sparad nagelprofil.</div>
+      </button>
+
+      <div id="sizing-panel"></div>
+    </div>
+  </section>
+
+  <!-- CUSTOM -->
+  <section class="screen hidden" id="screen-custom">
+    <div class="wrap section" style="padding-top:24px; max-width:720px;">
+      <div class="back-row">
+        <button class="back-btn" data-nav="home" aria-label="Tillbaka">←</button>
+        <h1 class="page-title">Skapa ditt set</h1>
+      </div>
+      <p class="custom-intro">Har du en idé, en bild eller ett tillfälle i åtanke? Berätta för oss så designar vi ett unikt Nail‑Rich Studio-set utifrån din inspiration – aldrig en direkt kopia av någon annans konstverk.</p>
+      <div class="info-box">Riktpris: 450–1200 kr beroende på komplexitet*. Produktionstid: 2–4 veckor*.<br><span class="small">*Exempel, väntar bekräftelse från studion.</span></div>
+      <div class="upload-zone">📎 Ladda upp inspirationsbilder (dra hit eller välj fil)</div>
+      <button class="btn btn-primary btn-block">Starta din förfrågan</button>
+    </div>
+  </section>
+
+  <!-- CONFIRMATION -->
+  <section class="screen hidden" id="screen-confirmation">
+    <div class="confirm-screen">
+      <div class="confirm-icon">✓</div>
+      <h1 class="section-title" style="font-size:32px;">Tack för din beställning!</h1>
+      <div class="confirm-order">Ordernummer <strong>#NRS-10482</strong></div>
+      <div class="confirm-note">Din sizing-kit skickas inom 1–2 dagar. När du mätt klart loggar du in och sparar din nagelprofil – då slutför vi din beställning direkt utan att du behöver välja om.</div>
+      <button class="btn btn-primary" data-nav="home">Till startsidan</button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-col footer-brand">
+      <span class="brand-name">Nail‑Rich Studio</span>
+      <p>Handgjorda press-on-naglar och nagelkonst från studion i Handen, Stockholm. 15+ års erfarenhet i varje set.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#" data-nav="shop">Alla set</a>
+      <a href="#" data-shop-type="ready">Ready to ship</a>
+      <a href="#" data-shop-type="made">Made to order</a>
+      <a href="#" data-nav="custom">Custom design</a>
+    </div>
+    <div class="footer-col">
+      <h4>Hjälp</h4>
+      <a href="#" data-nav="sizing">Hitta din storlek</a>
+      <a href="#" data-nav="home" data-scroll="how">Så funkar det</a>
+      <a href="#">FAQ</a>
+      <a href="#">Kontakt</a>
+    </div>
+    <div class="footer-col">
+      <h4>Studio</h4>
+      <a href="#">Boka tid</a>
+      <a href="#">Om studion</a>
+      <a href="#">Recensioner</a>
+      <a href="#">Instagram</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    © 2026 Nail‑Rich Studio · Priser inkl. moms · Prototyp – sample-innehåll
+  </div>
+</footer>
+
+<!-- Cart drawer -->
+<div id="cart-root"></div>
+
+<!-- Checkout -->
+<div id="checkout-root"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
